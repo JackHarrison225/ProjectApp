@@ -55,4 +55,6 @@ export class ApiClient {
           console.log("Checking username in database")
           return this.authenticatedCall('get', `${url}username/${userDetails.Username}`);
      }
+     
+     
 }
