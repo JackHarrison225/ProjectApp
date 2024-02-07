@@ -12,7 +12,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    console.log("Page Log out")
   }, [token]);
 
   useEffect(() => {
@@ -28,17 +27,17 @@ export default function Home() {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.setItem("token", null);
     setToken(null);
   };
 
   return (
-    <>
+    <body className="h-full">
       {token ? (
         <Dashboard setToken={setToken} client={client}/>
       ) : (
         <AuthoriseUser loggedIn={(token) => login(token)} client={client} />
       )}
-    </>  
+    </body>  
   );
 }

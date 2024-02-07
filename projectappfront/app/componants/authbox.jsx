@@ -11,23 +11,27 @@ const AuthoriseUser = (props) => {
      useEffect(() => {
      }, [authProcess])
 
-     // - - Alfie Code - -
      const submitHandler = (e) => {
-          e.preventDefault();
+          
           setDisabled(true);
-          props.client.login(e.target?.Username.value, e.target?.password.value).then((response) => {
-               setDisabled(false);
-               props.loggedIn(response.data.token)
+          console.log("Sent to api clinet")
+          console.log(e)
+          props.client.login(e.Username, e.Password).then((response) => {
+              setDisabled(false);
+              props.loggedIn(response.data.Token)
+              console.log(response.data.Token)
           }).catch(() => {
-          alert("Wrong Username or Password.\nTry again.")
-          setDisabled(false);
+            alert("Wrong Username or Password.\nTry again.")
+            setDisabled(false);
           })
-     }
+      }
+      
      const submitHandlerSignUp = (UserObject) => 
      {
           console.log("THIS ONE")
           props.client.login(UserObject.Username, UserObject.Password).then((response) => {
           props.loggedIn(response.data.token)
+          console.log(response)
           }).catch(() => {
                console.log("THIS ONE HERE")
           })
