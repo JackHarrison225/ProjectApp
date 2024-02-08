@@ -9,7 +9,6 @@ const HomePage = (props) => {
 
     const { projects } = useContext(ProjectContext)
 
-
     return (
         <div>
             <section className="relative isolate h-screen bg-gunmetal">

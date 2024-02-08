@@ -1,7 +1,12 @@
 import Link from 'next/link'
 
 
-const NavBarNoAuth = () => {
+const NavBarNoAuth = (props) => {
+
+    const GoToLogIn =() =>{
+        props.setLogIn(true)
+    }
+
     return (
         <div>
         
@@ -14,7 +19,7 @@ const NavBarNoAuth = () => {
             <div>
                 <ul>
                     <li>Profile</li>
-                    <li>Logout</li>
+                    <li onClick={GoToLogIn}>LogIn</li>
                 </ul>
             </div>
         </div>
