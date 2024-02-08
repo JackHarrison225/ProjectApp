@@ -53,8 +53,8 @@ export default function Landing ({props}){
             
             {token? (
                 <>
-                    <NavBarAuth setLogIn={setLogIn}/>
-                    <Dashboard setToken={setToken} client={client}/>
+                    <NavBarAuth setLogIn={setLogIn} logOut={logout} />
+                    <Dashboard client={client}/>
                 </>
             ) : (
                 LogIn?(
