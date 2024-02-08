@@ -28,12 +28,11 @@ const AuthoriseUser = (props) => {
       
      const submitHandlerSignUp = (UserObject) => 
      {
-          console.log("THIS ONE")
           props.client.login(UserObject.Username, UserObject.Password).then((response) => {
-          props.loggedIn(response.data.token)
-          console.log(response)
-          }).catch(() => {
-               console.log("THIS ONE HERE")
+          props.loggedIn(response.data.Token)
+          console.log(response.data.Token)
+          }).catch((error) => {
+               console.error(error)
           })
      }
 
