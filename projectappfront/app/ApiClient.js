@@ -2,8 +2,6 @@ import axios from "axios";
 const url = "http://localhost:3000/";
 
 export class ApiClient {
-          // the constructor function takes in two callback functions which change the state in the page.js.
-          // the page.js is where the state is stored so the functions we callback have to be there.
           constructor(tokenProvider, logoutHandler) {
           this.tokenProvider = tokenProvider;
           this.logoutHandler = logoutHandler;
@@ -23,8 +21,7 @@ export class ApiClient {
           }).catch((error) => {
                console.log(error)
                if (error.response.status === 403) 
-               {// 403 indicates that the user is not logged in 
-                    // therefore we call the logouthandler function and clear the local storage and the state
+               {   
                     this.logoutHandler();
                     return Promise.reject();
                } 
@@ -35,7 +32,13 @@ export class ApiClient {
      });
      }
 
+     async checkToken(token)
+     {
+          console.log("check token")
 
+          return this.authenticatedCall("get", `${url}Token/${token}`)
+
+     }
      async login(Username, Password) 
      {
           console.log("SIGNED UP USER NOW TRIYNG TO LOG IN")

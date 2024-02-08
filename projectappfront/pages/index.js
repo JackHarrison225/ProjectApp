@@ -18,30 +18,48 @@ export default function Landing ({props}){
     //#####  user authentication  #####//  
     const [token, setToken] = useState(null);
     const [LogIn, setLogIn] = useState(false)
-
+    
     const client = new ApiClient(
         () => token,
         () => logout()
     );
-
-    useEffect(() => {
-    }, [token]);
+    
 
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-        setToken(token);
+        let val = checkToken(token);
+        if (val == true)
+        {
+            setToken(token)
+        }
+        else{
+            localStorage.removeItem("token")
+        }
         }
     }, []);
 
+    
     const login = (token) => {
         localStorage.setItem("token", token);
         setToken(token);
     };
 
+    const checkToken = (token) =>
+    {
+        let real = client.checkToken(token)
+        if (real == false){
+            logout()
+        }
+    }
+
+    useEffect(() => {
+        
+    }, [token]);
+
     const logout = () => {
-        localStorage.setItem("token", null);
         setToken(null);
+        localStorage.removeItem("token");
     };
     //#################################//  
 
@@ -56,6 +74,7 @@ export default function Landing ({props}){
                     <NavBarAuth setLogIn={setLogIn} logOut={logout} />
                     <Dashboard client={client}/>
                 </>
+            
             ) : (
                 LogIn?(
                     <>
