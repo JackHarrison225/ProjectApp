@@ -24,12 +24,12 @@ export default function Landing ({props}){
         () => logout()
     );
     
-
-    useEffect(() => {
+    useEffect(async() => {
         const token = localStorage.getItem("token");
         if (token) {
-        let val = checkToken(token);
-        if (val == true)
+        const val = await client.checkToken(token);
+        console.log(val.data)
+        if (val.data == true)
         {
             setToken(token)
         }

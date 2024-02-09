@@ -1,10 +1,11 @@
 import React from 'react'
 import CreateProject from './projectcomponents/CreateProject'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  const client = props.client
   return (
     <div>dashboard
-      <CreateProject />
+      <CreateProject client={client} />
     </div>
   )
 }
