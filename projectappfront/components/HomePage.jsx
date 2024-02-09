@@ -1,64 +1,113 @@
-import React, {useContext} from 'react';
+import React, { useContext, useEffect } from "react";
+import gsap from 'gsap';
 
-import ProjectCard from './projectcomponents/ProjectCard';
+import ProjectCard from "./projectcomponents/ProjectCard";
 
-import {ProjectContext} from "../contexts/ProjectsContexts"
-
+import { ProjectContext } from "../contexts/ProjectsContexts";
+import andrea from "../public/images/andrea.jpg"
+import pythonPic from "../public/images/python-darkbg.png"
+import devPic from "../public/images/headshot.jpg"
 
 const HomePage = (props) => {
+  const { projects } = useContext(ProjectContext);
 
-    const { projects } = useContext(ProjectContext)
+  const midPoint = Math.ceil(projects.length / 2);
+  const firstHalfProjects = projects.slice(0, midPoint);
+  const secondHalfProjects = projects.slice(midPoint)
 
 
-    return (
-        <div>
-            <section className="relative isolate h-screen bg-gunmetal">
-                <div className="p-8 flex items-center max-w-fit h-full m-auto ">
-     
-                        <h3 className="text-3xl text-white">
-                            Collaborations, at your finger tips.
-                        </h3>
-  
-                </div>
-            </section>
 
-            <section className="relative min-h-40 m-auto bg-white p-8">
-                <div className=" flex items-start max-w-fit m-auto ">
-                    <h3 className="mb-3">
-                        Search for a Projects
-                        </h3>
-                </div>
-                <div className=" grid grid-cols-6 gap-4 max-w-fit m-auto cursor-pointer">
-                    
-                    <p className="flex items-center before:content-['X'] before:mr-2 before:font-bold before:text-xs border p-2 rounded-lg">
-                        React
-                    </p>
-                    <p className="flex items-center before:content-['X'] before:mr-2 before:font-bold before:text-xs border p-2 rounded-lg">
-                        Next.js
-                    </p>
+  return (
+    <div className="bg-gray-100">
+      <section className="relative isolate h-screen  bg-cover">
+        <div className="relative h-full flex flex-col tracking-wider bg-cover bg-center bg-fixed md:flex-row">
 
-                </div>
-            </section>
+          <div className="relative z-10 p-4 flex flex-1 w-full items-center justify-center bg-gunmetal ">
+            <p className="absolute  top-10 left-10  md:top-10  text-white">For Developers,</p>
+            <h1 className="absolute   uppercase text-white text-3xl md:text-4xl lg:text-5xl ">
+              Reimagining
+            </h1>
+          </div>
 
-            <section className="relative h-screen ">
-                <div className="p-8 max-w-5xl  overflow-x-auto m-auto">
-                <div className="grid grid-cols-2 gap-3">
-                    {projects.map((project) => (
-                    <ProjectCard
-                    key={project.id}
-                    title={project.title}
-                    tags={project.tags.join(', ')}
-                    description={project.description}
-                    />
-                    ))}
-
-                </div>
-                </div>
-
-            </section>
+          <div className="relative p-4 flex flex-1 items-center justify-center  bg-pumpkin">
+          <h1 className="absolute  uppercase z-10 text-3xl md:text-4xl lg:text-5xl text-black">
+              Collaborations
+            </h1>
+            <p className="absolute flex flex-end bottom-10 right-10 text-black md-bottom">
+                By Developers.
+            </p>
+          </div>
 
         </div>
-    )
-}
+      </section>
 
-export default HomePage
+    <div className="content-section">
+    <div className="w-full flex flex-none gap-56 px-8 py-20">
+        <section className="section-easy-nav p-8 sticky top-0 self-start items-start">
+            Active
+        </section>
+
+        <div className="content-area ">
+        <section className="relative min-h-40  p-8">
+        <div className="flex flex-col ">
+        <div className="">
+          <h3 className="mb-3 font-bold text-xl md:text-3xl">Trending Projects</h3>
+        </div>
+        <div className=" flex overflow-x-auto gap-4 cursor-pointer">
+          <p className="text-center whitespace-nowrap mb-2  before:content-['#'] before:mr-1 before:font-bold before:text-xs border p-2 rounded-lg">
+            React
+          </p>
+          <p className="text-center whitespace-nowrap mb-2  before:content-['#'] before:mr-1 before:font-bold before:text-xs border p-2 rounded-lg">
+            Next.js
+          </p>
+          <p className="text-center whitespace-nowrap mb-2  before:content-['#'] before:mr-1 before:font-bold before:text-xs border p-2 rounded-lg">
+            Express
+          </p>
+        </div>
+        </div>
+
+      </section>
+
+      <section className="relative h-screen p-8">
+
+        
+      <h3 className="mb-3  font-normal text-xl md:text-3xl">Active Projects</h3>
+      
+        <div className="mx-auto overflow-x-auto w-full whitesapce-nowrap ">
+        <div className="flex flex-row gap-4">
+            {projects.map((project) => (
+              <div key={project._id} className="project-card inline-block min-w-[300px] shrink-0 ">
+                <ProjectCard
+                title={project.title}
+                projPicture={pythonPic}
+                devPicture={devPic}
+                tags={project.tags.join(", ")}
+                description={project.description}
+              />
+              </div>
+
+            ))}
+          </div>
+
+        </div>
+
+
+      
+
+
+
+      </section>
+        </div>
+
+      </div>
+
+
+    </div>
+    
+
+
+    </div>
+  );
+};
+
+export default HomePage;

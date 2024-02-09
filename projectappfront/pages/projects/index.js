@@ -2,6 +2,7 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react'
 import Image from "next/image";
 import gsap from 'gsap';
+import andrea from "../../public/images/andrea.jpg"
 
 
 import ProjectCard from "../../components/projectcomponents/ProjectCard"
@@ -23,9 +24,10 @@ export default function Projects(props) {
   ];
 
   const projectMembers = [
-    {id: 1, username: "gendry"},
+    {id: 1, username: "gendry", },
     {id: 2, username: "davos"},
     {id: 3, username: "darkstar"}
+  
   ]
 
 
@@ -69,6 +71,7 @@ export default function Projects(props) {
         // key={project.id}
         // className=""
         title={project.title}
+        picture={andrea}
         tags={project.tags.join(', ')}
         description={project.description}/>
         </div>
@@ -87,6 +90,7 @@ export default function Projects(props) {
           .map(filteredMember => (
             <ProjectMembers
               key={filteredMember.id}
+              picture={andrea}
               name={filteredMember.username}
             />
           ))}

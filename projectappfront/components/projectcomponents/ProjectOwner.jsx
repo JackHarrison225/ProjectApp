@@ -10,6 +10,7 @@ const ProjectOwner = ({ username, picture }) => {
                 src={picture}
                 width={250}
                 height={250}
+                
                 object-fit="cover"/>
                 <h3 className="text-md font-semibold">
                 @{username}
