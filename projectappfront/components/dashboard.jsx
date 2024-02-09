@@ -1,8 +1,11 @@
 import React from 'react'
+import CreateProject from './projectcomponents/CreateProject'
 
 const Dashboard = () => {
   return (
-    <div>dashboard</div>
+    <div>dashboard
+      <CreateProject />
+    </div>
   )
 }
 

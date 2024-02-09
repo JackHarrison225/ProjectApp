@@ -59,5 +59,11 @@ export class ApiClient {
           return this.authenticatedCall('get', `${url}username/${userDetails.Username}`);
      }
      
-     
+     async CreateProject(Title, description, tags, picture, owners, team)
+     {
+          console.log("Checking..")
+          return this.authenticatedCall("post", `${url}createproject`, {Title, description, tags, picture, owners, team})
+     }
+
+
 }

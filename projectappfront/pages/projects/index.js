@@ -1,7 +1,7 @@
 'use client'
 import React, {useState, useEffect, useLayoutEffect} from 'react'
 import Image from "next/image";
-import gsap from 'gsap';
+// import gsap from 'gsap';
 
 
 import ProjectCard from "../../components/projectcomponents/ProjectCard"
