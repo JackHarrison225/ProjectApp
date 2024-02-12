@@ -9,7 +9,7 @@ import ProjectCard from "../../components/projectcomponents/ProjectCard"
 import NavBarAuth from "../../components/navcomponents/NavBarAuth"
 import ProjectFilter from "../../components/projectcomponents/ProjectFilter"
 import ProjectMembers from "../../components/projectcomponents/ProjectMembers"
-import ProjectOwner from "../../components/projectcomponents/ProjectOwner"
+import ProjectOwner from "../../components/projectcomponents/DevCard"
 
 
 

@@ -1,5 +1,6 @@
 
 import { useEffect } from 'react';
+import {useRouter} from 'next/router'
 import { Inter } from "next/font/google";
 import { ProjectProvider } from '../contexts/ProjectsContexts'
 // import {ApiClientProvider} from '../contexts/ApiClientContext';
@@ -12,6 +13,11 @@ import NavBarAuth from '../components/navcomponents/NavBarAuth'
 const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }) {
+
+  const router = useRouter()
+
+  const noNavBarPaths = ['/login', '/signup']
+
   useEffect(() => {
 
     document.body.className = inter.className;
@@ -21,7 +27,8 @@ function MyApp({ Component, pageProps }) {
     // <ApiClientProvider client={apiClient}>
     <>
       <ProjectProvider>
-        <NavBarAuth />
+        {!noNavBarPaths.includes(router.pathname) && <NavBarAuth />}
+        
         <Component {...pageProps} />
       </ProjectProvider>
 

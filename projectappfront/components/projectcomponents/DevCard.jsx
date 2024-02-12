@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-const ProjectOwner = ({ username, picture }) => {
+const devCard = ({ username, picture }) => {
 
     
     return (
@@ -26,4 +26,4 @@ const ProjectOwner = ({ username, picture }) => {
 }
 
 
-export default ProjectOwner
+export default devCard
