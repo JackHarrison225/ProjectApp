@@ -1,4 +1,4 @@
-import LogInPage from '../../components/authpages/LogInPage'
+import LogInPage from '../../components/authpages/SignIn'
 
 export default function LogIn() {
     return (

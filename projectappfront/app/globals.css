@@ -11,3 +11,9 @@
     margin-top: 100px
 }
 
+.icon-container {
+    position:relative;
+    width: 50%;
+    height: 50%;
+}
+
