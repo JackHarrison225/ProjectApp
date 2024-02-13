@@ -21,7 +21,8 @@ export class ApiClient {
           }).catch((error) => {
                console.log(error)
                if (error.response.status === 403) 
-               {   
+               {// 403 indicates that the user is not logged in 
+                    // therefore we call the logouthandler function and clear the local storage and the state
                     this.logoutHandler();
                     return Promise.reject();
                } 
@@ -32,25 +33,41 @@ export class ApiClient {
      });
      }
 
-     async checkToken(token)
-     {
-          console.log("check token")
-
-          return this.authenticatedCall("get", `${url}Token/${token}`)
-
-     }
      async login(Username, Password) 
      {
           console.log("SIGNED UP USER NOW TRIYNG TO LOG IN")
-
           return this.authenticatedCall("post", `${url}auth`, {Username, Password});
      }
 
      async signUp(Username, Password) 
      {
           console.log('CALLED SIGN UP CALL')
-
           return this.authenticatedCall("post", `${url}signup`, {Username, Password});
+     }
+
+     async addEmail(username, email)
+     {
+          console.log("add email")
+          return this.authenticatedCall('patch', `${url}addEmil`, {username, email})
+     }
+
+     async forgotPasswordLink(username, email)
+     {
+          console.log("Forgot password")
+          return this.authenticatedCall('patch', `${url}forgotPassword`, {username, email})
+     }
+
+     async ChangeUsername(email, password, username, newUsername)
+     {
+          console.log("Change username")
+          return this.authenticatedCall('patch', `${url}changeUsername`, {email, password, username, newUsername})
+     }
+
+     async changePassword(page, userInfo)
+     {
+          console.log("Change password")
+          return this.authenticatedCall('patch', `${url}changePassword`, {page, userInfo})
+          
      }
 
      async checkUsername(userDetails) 
@@ -59,5 +76,22 @@ export class ApiClient {
           return this.authenticatedCall('get', `${url}username/${userDetails.Username}`);
      }
      
+     async addFriend(username, user, token)
+     {
+          console.log("Adding friend")
+          return this.authenticatedCall('patch', `${url}addFriend`, {username, user})
+     }
+
+     async addTeamMember(username, user, projectID)
+     {
+          console.log("Add user to team")
+          return this.authenticatedCall('patch', `${url}addTeam`, {username, user})
+     }
+     
+     async addOwner(username, user, projectID)
+     {
+          console.log("adding to owners")
+          return this.authenticatedCall('patch', `${url}addOwner`, {username, user})
+     }
      
 }

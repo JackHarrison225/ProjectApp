@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 const SignUp = ({submitHandler, setAuthProcess, client}) => {
      const [userObject, setuserObject] = useState({Username:"", Password:"", Password2:""})
      const checkPassword = () => {
-          const isRight = /^(?=.*[a-zA-Z0-9])(?=.*[\W_]).{8,20}$/g.test(userObject.Password);
+          const isRight = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,20}$/g.test(userObject.Password);
           console.log("checked")
           return isRight ? true : false 
           }
