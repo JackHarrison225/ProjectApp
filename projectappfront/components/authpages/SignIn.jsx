@@ -76,26 +76,26 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
               
  
             </div>
-            <div className=" p-2 md:p-4 lg:p-4 hidden md:flex flex-1 w-full h-screen bg-gunmetal">
-               <div className="relative flex flex-col flex-1  w-full items-center ">
-                    <div className="relative border w-full overflow-y-hidden flex flex-1 flex-col">
+            <div className=" p-2 md:p-4 lg:p-4 hidden md:flex flex-1 w-full h-screen bg-black">
+               <div className="relative z-10 flex flex-col flex-1  w-full items-center ">
+                    <div className="relative -rotate-12  w-full  flex flex-1 flex-col">
                     
-                    <div className="icon-container rotate-12 absolute md:left-20 lg:bottom-8 lg:left-24 xl:left-32 2xl:w-[50%]">
+                    <div className="icon-container text-white rotate-12 absolute md:bottom-1 md:left-20 lg:bottom-8 lg:left-24 xl:left-40 xl:w-[45%]">
                     <NextSvg
-                         className="absolute text-white"
+                         className="absolute icon fill-white"
                          />
                     </div>
 
-                    <div className="icon-container -rotate-12 md:left-8 md:bottom-6 lg:bottom-12 xl:right-12">
+                    <div className="icon-container -rotate-12 md:left-8 md:bottom-6 lg:bottom-12 xl:right-12 xl:w-[40%]">
                     <PythonSvg
                     className="absolute"/>
                     </div>
 
-                    <div className="icon-container rotate-6 md:bottom-4 xl:w-[40%]">
+                    <div className="icon-container rotate-6 md:bottom-4 xl:left-10 xl:top-4 xl:w-[38%]">
                     <AngularSvg className=" absolute "/>
                     </div>
                     
-                    <div className="icon-container -rotate-12 md:left-12 lg:left-20 lg:bottom-8 xl:left-32 xl:w-[35%]">
+                    <div className="icon-container -rotate-12 md:left-12 lg:left-20 lg:bottom-8 xl:left-48 xl:right-10 xl:w-[35%]">
                          <JavascriptSvg
                           className="absolute "/>
                     </div>
@@ -104,9 +104,9 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
 
 
                     </div>
-                    <div className="flex flex-1 items-even justtify-center">
-                    <h3>
-                         bl
+                    <div className="flex flex-1 justify-center items-center">
+                    <h3 className="text-white">
+                       We Orchestrate.
                     </h3>
                     </div>
 
@@ -116,23 +116,38 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
 
                </div>
 
-               <div className="relative flex flex-col flex-1  w-full items-center ">
-                    <div className="flex flex-1 flex-row">
-                         <h3>
-                         <i className="devicon-nextjs-original-wordmark"></i>
-                              Next r
+               <div className="relative flex flex-col flex-1 overflow-hidden w-full items-center ">
+                    <div className="flex flex-1 items-center w-full justify-center">
+                         <h3 className="text-white">
+                         You build,
                          </h3>
                     </div>
-                    <div className="flex flex-1 items-even justtify-center">
-                    <h3>
-                         Next br
-                    </h3>
+                    <div className="relative flex flex-1 flex-col  w-full ">
+                    
+                    <div className="icon-container text-white rotate-12 absolute md:left-2 lg:bottom-6 lg:left-24 xl:left-40 xl:w-[45%]">
+                    <ExpressSvg
+                         className="absolute icon fill-white"
+                         />
                     </div>
 
+                    <div className="icon-container -rotate-12 md:left-12 md:bottom-6 lg:bottom-12 xl:right-12 xl:w-[40%]">
+                    <PhpSvg
+                    className="absolute"/>
+                    </div>
+
+                    <div className="icon-container rotate-6 md:bottom-4 md:left-20 lg:left-6 lg:bottom-8 xl:left-10 xl:top-4 xl:w-[38%]">
+                    <MongoDbSvg className=" absolute "/>
+                    </div>
+                    
+                    <div className="icon-container -rotate-12 md:left-4 lg:left-28 lg:w-[45%] lg:bottom-4 xl:left-48 xl:right-10 xl:w-[35%]">
+                         <CPlusSvg
+                          className="absolute "/>
+                    </div>
+
+                         
 
 
-
-
+                    </div>
                </div>
                </div>
 
