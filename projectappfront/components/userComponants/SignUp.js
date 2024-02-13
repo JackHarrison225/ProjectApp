@@ -25,40 +25,37 @@ const SignUp = ({submitHandler, setAuthProcess, client}) => {
           })
      }
      const handleSignUp = async (e) => {
-     e.preventDefault();
-     let userExists;
+          e.preventDefault();
+          let userExists;
 
-     try {
-          
-          userExists = await client.checkUsername(userObject);
-          console.log(userExists.data)
-
-     } catch (error) {
-          console.log(error);
-          console.log("Error making request");
-     }
-     
-     if(userExists.data == false)
-     {
-          const isPassword = comparePassword();
-
-          if (isPassword) {
-          // Sign up user
           try {
-               await client.signUp(userObject.Username, userObject.Password);
-               let userObject2 = {Username : userObject.Username, Password: userObject.Password}
-               await submitHandler(userObject2);
-               return;
-          } catch (err) {
-               console.error(err);
+               userExists = await client.checkUsername(userObject);
+          } catch (error) {
+               console.log(error);
+               return console.log("Error making request");
           }
-          } else {
-          alert("Password must be: \n8-20 characters long.\ncontain at least one special character.\ncontain at least one number.\ncontain at least one capital and lowecase letter.")
-          return;
-          } 
-     }
+          
+          if(userExists.data == false)
+          {
+               const isPassword = comparePassword();
 
-     alert("User name taken")
+               if (isPassword) {
+               // Sign up user
+               try {
+                    await client.signUp(userObject.Username, userObject.Password);
+                    let userObject2 = {Username : userObject.Username, Password: userObject.Password}
+                    await submitHandler(userObject2);
+                    return;
+               } catch (err) {
+                    console.error(err);
+               }
+               } else {
+               alert("Password must be: \n8-20 characters long.\ncontain at least one special character.\ncontain at least one number.\ncontain at least one capital and lowecase letter.")
+               return;
+               } 
+          }
+
+          alert("User name taken")
      };
 
      const handleLogin = () => {
