@@ -1,5 +1,9 @@
 import React from 'react';
 
+import ImageGalleryOne from '../../public/images/signup-draft.jpg'
+import ImageGalleryTwo from '../../public/images/signup-draft-two.jpg'
+import AuthGif from '../../public/gifs/auth-gif.gif'
+// import AuthVideo from '../../public/videos/auth-video.mp4'
 
 
 const NextSvg = (props) => {
@@ -81,4 +85,4 @@ const PhpSvg = (props) => {
     )
 }
 
-export {NextSvg, AngularSvg, JavascriptSvg, ExpressSvg, MongoDbSvg, CPlusSvg, SqlSvg, PythonSvg, PhpSvg}
+export {ImageGalleryOne, ImageGalleryTwo, AuthGif, NextSvg, AngularSvg, JavascriptSvg, ExpressSvg, MongoDbSvg, CPlusSvg, SqlSvg, PythonSvg, PhpSvg}

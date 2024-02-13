@@ -95,7 +95,7 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
                     <AngularSvg className=" absolute "/>
                     </div>
                     
-                    <div className="icon-container -rotate-12 md:left-12 lg:top-6 lg:left-16 lg:bottom-8 xl:top-12 xl:left-32 xl:right-10 xl:w-[30%]">
+                    <div className="icon-container -rotate-12 md:left-12 lg:top-6 lg:left-16 lg:bottom-8 xl:top-12 xl:left-36 xl:right-10 xl:w-[30%]">
                          <JavascriptSvg
                           className="absolute "/>
                     </div>
@@ -105,7 +105,7 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
 
                     </div>
                     <div className="flex flex-1 justify-center items-center">
-                    <h3 className="md:text-xl lg:text-3xl text-white">
+                    <h3 className="md:text-xl lg:text-3xl text-gray-200">
                        We Orchestrate.
                     </h3>
                     </div>
@@ -118,7 +118,7 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
 
                <div className="relative flex flex-col flex-1 overflow-hidden w-full items-center ">
                     <div className="flex flex-1 items-center w-full justify-center">
-                         <h3 className="md:text-xl lg:text-3xl text-white">
+                         <h3 className="md:text-xl lg:text-3xl text-gray-200">
                          You build,
                          </h3>
                     </div>
