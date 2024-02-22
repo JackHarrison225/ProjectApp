@@ -8,6 +8,9 @@ export const ProjectContext = createContext()
 
 export const ProjectProvider = ({ children }) => {
     const [projects, setProjects] = useState([])
+    const [recommendedProjects, setRecommendedProjects] = useState([])
+    const [userProjects, setUserProjects] = useState([])
+    const [savedProjects, setSavedProjects] = useState([])
     const [members, setMembers] = useState([])
     const [devs, setDevs] = useState([])
 
@@ -22,7 +25,22 @@ export const ProjectProvider = ({ children }) => {
             { _id: 7, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
           ];
           setProjects(initialProjects);
+          setRecommendedProjects(initialProjects)
+          setUserProjects(initialProjects)
     }, [])
+
+    useEffect(() => {
+        const savedprojects = [
+            { _id: 1, title: "Project 1", tags: ["django", "html", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 2], owner: "Bob"},
+  
+            { _id: 4, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
+          
+            { _id: 7, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
+          ];
+          setSavedProjects(savedprojects)
+
+    }, [])
+
 
     useEffect(() => {
         const projectMembers = [
@@ -44,7 +62,7 @@ export const ProjectProvider = ({ children }) => {
 
 
     return (
-        <ProjectContext.Provider value={{ projects, setProjects, devs, setDevs, members}}>
+        <ProjectContext.Provider value={{ projects, setProjects, devs, setDevs, members, userProjects, savedProjects}}>
             {children}
         </ProjectContext.Provider>
     )

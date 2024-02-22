@@ -9,7 +9,7 @@ import pythonPic from "../public/images/python-darkbg.png"
 import devPic from "../public/images/headshot.jpg"
 import DevCard from './projectcomponents/DevCard';
 
-const HomePage = (props) => {
+const unAuthHomePage = (props) => {
   const { projects, devs } = useContext(ProjectContext);
 
   const midPoint = Math.ceil(projects.length / 2);
@@ -145,4 +145,4 @@ const HomePage = (props) => {
   );
 };
 
-export default HomePage;
+export default unAuthHomePage;

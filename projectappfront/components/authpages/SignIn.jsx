@@ -41,7 +41,7 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
 
                <div className="from-section">
                <form className="flex flex-col">
-               <label for="username" className="">
+               <label htmlFor="username" className="">
                <p className="text-sm mb-2">Username</p>
                <input
                className="border w-full border-gray-300 rounded-md p-1 mb-4"
@@ -52,7 +52,7 @@ const SignIn = ({setAuthProcess, submitHandler}) => {
                onChange={handleInputChange} />
                </label>
                
-               <label for="password">
+               <label htmlFor="password">
                     <div className="flex  items-center justify-between">
                     <p className="text-sm mb-2">Password</p>
                   <p className="text-xs mb-2 text-gray-500">Forgot password?</p>

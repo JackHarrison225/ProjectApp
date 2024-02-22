@@ -34,7 +34,8 @@ module.exports = {
         "pumpkin":"#ff8c42",
         "amaranth":"#a5243d",
         "beige":"#ebebd3",
-        "celestial-blue":"#5200d3"
+        "celestial-blue":"#5200d3",
+        "eerie-black":"#191716"
       }
     },
   },

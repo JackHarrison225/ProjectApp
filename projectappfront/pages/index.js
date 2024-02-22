@@ -1,12 +1,14 @@
 import React from 'react'
 import Home from './projects/index';
-import HomePage from '../components/HomePage'
+import UnAuthHomePage from '../components/UnAuthHomePage'
+import AuthHomePage from '../components/AuthHomePage'
 
 export default function Landing (){
     return (
  
         <div>
-        <HomePage/>
+        <AuthHomePage />
+        {/* <UnAuthHomePage/> */}
 
         </div>
     )

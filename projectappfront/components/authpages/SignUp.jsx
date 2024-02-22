@@ -80,7 +80,7 @@ const SignUpPage = ({submitHandler, setAuthProcess, client}) => {
 
                <div className="from-section">
                <form className="flex flex-col">
-               <label for="username" className="">
+               <label htmlFor="username" className="">
                <p className="text-sm mb-2">Username</p>
                <input
                className="border w-full border-gray-300 rounded-md p-1 mb-4"
@@ -105,7 +105,7 @@ const SignUpPage = ({submitHandler, setAuthProcess, client}) => {
                />
                </label>
 
-               <label for="Password2" className="">
+               <label htmlFor="Password2" className="">
 
                <div className="flex  items-center justify-between">
                     <p className="text-sm mb-2">Confirm password</p>
@@ -141,7 +141,7 @@ const SignUpPage = ({submitHandler, setAuthProcess, client}) => {
                 <div>
                 <h3 className="text-white flex justify-end">Project name</h3>
                 </div>
-                <div className="relative flex md:text-xl lg:text-3xl top-40 flex justify-center">
+                <div className="relative md:text-xl lg:text-3xl top-40 flex justify-center">
                 <h3 className="relative text-white ">Work, Share, Collaborate</h3>
                 </div>
                
