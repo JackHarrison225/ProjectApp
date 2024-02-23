@@ -67,8 +67,6 @@ export default function Landing ({props}){
     return (
  
         <div>
-            
-            
             {token? (
                 <>
                     <NavBarAuth setLogIn={setLogIn} logOut={logout} />

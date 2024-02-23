@@ -21,8 +21,7 @@ export class ApiClient {
           }).catch((error) => {
                console.log(error)
                if (error.response.status === 403) 
-               {// 403 indicates that the user is not logged in 
-                    // therefore we call the logouthandler function and clear the local storage and the state
+               {
                     this.logoutHandler();
                     return Promise.reject();
                } 
@@ -31,6 +30,12 @@ export class ApiClient {
                     throw error;
                }
      });
+     }
+
+     async checkToken(token)
+     {
+          console.log("CheckToken")
+          return this.authenticatedCall("get", `${url}Token/${token}`);
      }
 
      async login(Username, Password) 
@@ -76,22 +81,22 @@ export class ApiClient {
           return this.authenticatedCall('get', `${url}username/${userDetails.Username}`);
      }
      
-     async addFriend(username, user, token)
+     async addFriend(Username, Friendname, token)
      {
           console.log("Adding friend")
-          return this.authenticatedCall('patch', `${url}addFriend`, {username, user})
+          return this.authenticatedCall('patch', `${url}addFriend`, {Username, Friendname, token})
      }
 
-     async addTeamMember(username, user, projectID)
+     async addTeamMember(Username, Teamname, projectID)
      {
           console.log("Add user to team")
-          return this.authenticatedCall('patch', `${url}addTeam`, {username, user})
+          return this.authenticatedCall('patch', `${url}addTeam`, {Username, Teamname, projectID})
      }
      
      async addOwner(username, user, projectID)
      {
           console.log("adding to owners")
-          return this.authenticatedCall('patch', `${url}addOwner`, {username, user})
+          return this.authenticatedCall('patch', `${url}addOwner`, {username, user, projectID})
      }
      
 }

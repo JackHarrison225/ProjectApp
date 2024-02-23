@@ -58,7 +58,7 @@ test("Return false with no number.",() => {
 
 })
 
-test("Return true when the password contains 1 number, 1 capital one, 1 lower case, 1 special charater and is 8-20 charaters long", () => {
+test("Return true when the password contains at least 1 number, 1 capital one, 1 lower case, 1 special charater and is 8-20 charaters long", () => {
 
      expect(checkPassword("AAAAAAa1!")).toBe(true);
      expect(checkPassword("AAAaaaaA1!")).toBe(true);
@@ -80,11 +80,6 @@ const comparePassword = (Password, Password2) => {
 test("return false if passwords dont match", () => {
 
      expect(comparePassword("AAAAAAa1!","BBBBBBb1!")).toBe(false);
-
-})
-
-test("return true if passwords do match", () => {
-
      expect(comparePassword("AAAAAAa1!","AAAAAAa1!")).toBe(true);
 
 })
@@ -92,7 +87,7 @@ test("return true if passwords do match", () => {
 const CompareAndCheckPassword = (Password, Password2) =>{
      if(comparePassword(Password, Password2))
      {
-          checkPassword(Password)
+          return checkPassword(Password)
      }
      else return false
      
@@ -101,6 +96,8 @@ const CompareAndCheckPassword = (Password, Password2) =>{
 test("Return false if the passwords dont match", () => {
 
      expect(CompareAndCheckPassword("AAAAAAa1!","BBBBBBb1!")).toBe(false)
+     expect(CompareAndCheckPassword("AAAAAAa1!","AAAAAAa1!")).toBe(true)
+
 
 })
 //##############################//
