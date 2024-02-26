@@ -1,3 +1,4 @@
+import { useEffect} from "react";
 
 import { useEffect } from 'react';
 import {useRouter} from 'next/router'
@@ -6,10 +7,8 @@ import { ProjectProvider } from '../contexts/ProjectsContexts'
 import Head from 'next/head';
 // import {ApiClientProvider} from '../contexts/ApiClientContext';
 // import {ApiClient} from '@/utils/apiClient'
-import '../app/globals.css'
-import NavBarAuth from '../components/navcomponents/NavBarAuth'
 
-// const apiClient = new ApiClient()
+import '../app/globals.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +24,6 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    // <ApiClientProvider client={apiClient}>
     <>
       <ProjectProvider>
       <Head>
@@ -36,12 +34,13 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </ProjectProvider>
 
+          <ProjectProvider>
+            <Component {...pageProps} />
+          </ProjectProvider>
     </>
-
-
-
-    // </ApiClientProvider>
   );
 }
 
 export default MyApp;
+
+ 

@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 
 import Link from 'next/link'
 
-const NavBarAuth = () => {
+const NavBarAuth = (props) => {
 
     const [showDropDown, setShowDropDown] = useState(false)
 
@@ -37,7 +37,7 @@ const NavBarAuth = () => {
                                 <Link onClick={handleDropDownClick} href="/projects" className="p-1">Profile</Link>
                                 <Link href="#" className="sm:hidden mr-4 p-1">Contact</Link>
                             
-                                <li className="p-1">Logout</li>
+                                <li className="p-1" onClick={props.logOut}>Logout</li>
                               
                             </ul>
             
