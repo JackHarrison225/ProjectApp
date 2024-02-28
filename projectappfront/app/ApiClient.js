@@ -81,6 +81,7 @@ export class ApiClient {
           return this.authenticatedCall('get', `${url}username/${userDetails.Username}`);
      }
      
+
      async addFriend(Username, Friendname, token)
      {
           console.log("Adding friend")
@@ -99,4 +100,25 @@ export class ApiClient {
           return this.authenticatedCall('patch', `${url}addOwner`, {username, user, projectID})
      }
      
+
+     async CreateProject(title, tags, description, picture, token)
+     {
+          console.log("Creating project...")
+          return this.authenticatedCall("post", `${url}CreateProject`, {title,  tags, description, picture, token})
+     }
+
+     async deleteProject(id)
+     {
+          console.log("Deleting..")
+          return this.authenticatedCall("delete", `${url}deleteproject/${id}`)
+     }
+
+     async UpdateProject(title, tags, description, picture, id)
+     {
+          console.log("Updating..")
+          return this.authenticatedCall("patch", `${url}updateproject`, { title, tags, description, picture, id })
+     }
+
+
+
 }

@@ -25,8 +25,7 @@ export default function Landing ({props}){
         () => logout()
     );
     
-
-    useEffect(() => {
+    useEffect(async() => {
         const token = localStorage.getItem("token");
         if (token) {
             let val = checkToken(token);
@@ -37,6 +36,7 @@ export default function Landing ({props}){
             else{
                 localStorage.removeItem("token")
             }
+
         }
     }, []);
 
