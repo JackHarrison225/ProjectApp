@@ -27,7 +27,15 @@ module.exports = {
         "onyx": "#353b3c",
         "silver": "#c6c7c4",
         "rosetaupe":"#846a6a",
-        "rosequartz":"#a2999e"
+        "rosequartz":"#a2999e",
+
+        // current color selection
+        "gunmetal": "#292f36",
+        "pumpkin":"#ff8c42",
+        "amaranth":"#a5243d",
+        "beige":"#ebebd3",
+        "celestial-blue":"#5200d3",
+        "eerie-black":"#191716"
       }
     },
   },

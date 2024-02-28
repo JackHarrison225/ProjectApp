@@ -2,3 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
+.scrollbar:-webkit-scrollbar {
+    width:1px;
+    border-radius: 1px solid black;
+    margin-top: 100px
+}
+
+.icon-container {
+    position:relative;
+    width: 50%;
+    height: 50%;
+}
+
+
+

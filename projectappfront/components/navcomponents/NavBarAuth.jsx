@@ -1,13 +1,44 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { ApiClient } from '@/app/ApiClient'
 
 import Link from 'next/link'
 
-const NavBarAuth = (props) => {
-
+const NavBarAuth = ({logout}) => {
+    const [token , setToken] = useState(null)
     const [showDropDown, setShowDropDown] = useState(false)
+    const client = new ApiClient(
+        () => token,
+        () => logout()
+    );
 
+    
+    const checkToken = async(token) =>
+    {
+         let real = await client.checkToken(token)
+         if (!real){
+              logout()
+         }
+         else {
+              localStorage.setItem("token", token);
+              setToken(token);
+         }
+    }
+
+    useEffect(() => { 
+        const token = localStorage.getItem("token");
+        if (token) {
+            let val = checkToken(token);
+            if (val == true)
+            {
+                setToken(token)
+            }
+            else{
+                localStorage.removeItem("token")
+            }
+        }
+    }, []);
     const handleDropDownClick = () => {
         setShowDropDown(!showDropDown)
     }
@@ -37,7 +68,7 @@ const NavBarAuth = (props) => {
                                 <Link onClick={handleDropDownClick} href="/projects" className="p-1">Profile</Link>
                                 <Link href="#" className="sm:hidden mr-4 p-1">Contact</Link>
                             
-                                <li className="p-1" onClick={props.logOut}>Logout</li>
+                                <li className="p-1" onClick={logOut}>Logout</li>
                               
                             </ul>
             

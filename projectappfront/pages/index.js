@@ -6,12 +6,13 @@ import NavBarAuth from '../components/navcomponents/NavBarAuth'
 import NavBarNoAuth from '../components/navcomponents/NavBarNoAuth'
 
 import Home from './projects/index';
-import HomePage from '../components/HomePage'
+import UnAuthHomePage from '../components/UnAuthHomePage'
+import AuthHomePage from '../components/AuthHomePage'
 
 import {ApiClient} from '../app/ApiClient'
 
 import Dashboard from "../components/dashboard";
-import AuthoriseUser from "../components/userComponants/authbox";
+import AuthoriseUser from "@/components/authpages/authbox"
 
 export default function Landing ({props}){
 
@@ -27,15 +28,15 @@ export default function Landing ({props}){
     useEffect(async() => {
         const token = localStorage.getItem("token");
         if (token) {
-        const val = await client.checkToken(token);
-        console.log(val.data)
-        if (val.data == true)
-        {
-            setToken(token)
-        }
-        else{
-            localStorage.removeItem("token")
-        }
+            let val = checkToken(token);
+            if (val == true)
+            {
+                setToken(token)
+            }
+            else{
+                localStorage.removeItem("token")
+            }
+
         }
     }, []);
 
@@ -67,28 +68,14 @@ export default function Landing ({props}){
     return (
  
         <div>
-            
-            
-            {token? (
-                <>
-                    <NavBarAuth setLogIn={setLogIn} logOut={logout} />
-                    <Dashboard client={client}/>
-                </>
-            
-            ) : (
-                LogIn?(
-                    <>
-                        <AuthoriseUser loggedIn={(token) => login(token)} client={client} />
-                    </>
-                ):(
-                    <>
-                        <NavBarNoAuth setLogIn={setLogIn}/>
-                        <HomePage />
-                    </>
+        {
+            token?(
+                    <AuthHomePage />
+                ) : (
+                    <UnAuthHomePage/>
                 )
-            )}
-        
-        
+        }
+
         </div>
     )
 }
