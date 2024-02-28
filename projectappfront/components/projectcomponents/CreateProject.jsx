@@ -18,13 +18,7 @@ const CreateProject = (props) => {
                [event.target.name] : event.target.value
           })
      }
-     const handleUpdateTags = (event) => {
-          changeProject({
-               ...project.tags,
-               [((project.tags).length)-1] : event.target.value
-          })
-          event.target.value = ""
-     }
+
 
      const submitHandlerProject = async (e) => {
           try {
@@ -67,7 +61,7 @@ const CreateProject = (props) => {
 
                     <label htmlFor="tags">Tag line</label>
                     <input name="tags" 
-                    value={project.tags} onChange={handleUpdateTags} type="text"></input>
+                    value={project.tags} onChange={handleUpdate} type="text"></input>
                     
                     {/* <button htmlFor="Tags" className='bg-emerald-500'>+</button> */}
                     <label htmlFor="description">Description</label>
@@ -79,14 +73,6 @@ const CreateProject = (props) => {
                     value={project.picture} onChange={handleUpdate}>
                          {/* <button onClick={handleUpdateTags}> </button> */}
                     </input>
-
-                    <label htmlFor="owners">Owners</label>
-                    <input name="owners" 
-                    value={project.owners} onChange={handleUpdate} type="text"></input>
-
-                    <label htmlFor="team">Users</label>
-                    <input name="team" 
-                    value={project.team} onChange={handleUpdate} type="text"></input>
 
                     <label htmlFor="publish">Publish</label>
                     <input type="submit" name="publish" className="bg-emerald-500 rounded-md shadow-md hover:cursor-pointer hover:bg-emerald-700"></input>
