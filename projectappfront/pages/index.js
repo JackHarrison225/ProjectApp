@@ -12,7 +12,7 @@ import AuthHomePage from '../components/AuthHomePage'
 import {ApiClient} from '../app/ApiClient'
 
 import Dashboard from "../components/dashboard";
-import AuthoriseUser from "../components/userComponants/authbox";
+import AuthoriseUser from "@/components/authpages/authbox"
 
 export default function Landing ({props}){
 
@@ -29,14 +29,14 @@ export default function Landing ({props}){
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-        let val = checkToken(token);
-        if (val == true)
-        {
-            setToken(token)
-        }
-        else{
-            localStorage.removeItem("token")
-        }
+            let val = checkToken(token);
+            if (val == true)
+            {
+                setToken(token)
+            }
+            else{
+                localStorage.removeItem("token")
+            }
         }
     }, []);
 
@@ -68,8 +68,13 @@ export default function Landing ({props}){
     return (
  
         <div>
-        <AuthHomePage />
-        {/* <UnAuthHomePage/> */}
+        {
+            token?(
+                    <AuthHomePage />
+                ) : (
+                    <UnAuthHomePage/>
+                )
+        }
 
         </div>
     )

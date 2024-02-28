@@ -1,10 +1,10 @@
 import Link from 'next/link'
+import { Router, useRouter } from 'next/router'
 
-
-const NavBarNoAuth = (props) => {
-
+const NavBarNoAuth = () => {
+    const router = useRouter()
     const GoToLogIn =() =>{
-        props.setLogIn(true)
+        router.push("login")
     }
 
     return (
@@ -14,11 +14,11 @@ const NavBarNoAuth = (props) => {
             <h2>
                 Logo
             </h2>
-            <Link href="#">Home</Link>
+            <Link href="..">Home</Link>
             <Link href="#">Contact Us</Link>
             <div>
                 <ul>
-                    <li>Profile</li>
+                    <li onClick={GoToLogIn}>Profile</li>
                     <li onClick={GoToLogIn}>LogIn</li>
                 </ul>
             </div>

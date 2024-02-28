@@ -34,7 +34,7 @@ export class ApiClient {
 
      async checkToken(token)
      {
-          console.log("CheckToken")
+          console.log("Check Token")
           return this.authenticatedCall("get", `${url}Token/${token}`);
      }
 

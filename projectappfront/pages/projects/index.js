@@ -10,6 +10,8 @@ import NavBarAuth from "../../components/navcomponents/NavBarAuth"
 import ProjectFilter from "../../components/projectcomponents/ProjectFilter"
 import ProjectMembers from "../../components/projectcomponents/ProjectMembers"
 import ProjectOwner from "../../components/projectcomponents/DevCard"
+import { useRouter, Router } from 'next/router';
+import { ApiClient } from '@/app/ApiClient';
 
 
 
@@ -31,6 +33,11 @@ export default function Projects(props) {
   ]
 
 
+  const [token, setToken] = useState(null);
+  const client = new ApiClient(
+    () => token,
+    () => logout()
+  );
 
   const [projects, setProjects] = useState(initialProjects)
   const [members, setMembers] = useState(projectMembers)
@@ -42,21 +49,48 @@ export default function Projects(props) {
 
   const filteredProjects = filter ? projects.filter(projects => projects.tags.includes(filter)) : projects
 
+  const router = useRouter()
+  const checkToken = async() =>
+  {
+    if(token == null)
+    {
+      let storedToken = localStorage.getItem("token")
+      console.log(storedToken)
+      if (storedToken === null)
+      {
+        console.log(storedToken)
+        localStorage.removeItem("token")
+        router.push("/login")
+      }
+      let real = await client.checkToken(storedToken)
+      if (real.data == false){
+        localStorage.removeItem("token")
+        router.push("/login")
+      }
+    }
+    else
+    {
+      let real = await client.checkToken(token)
+      if (real.data == false){
+        localStorage.removeItem("token")
+        router.push("/login")
+      }
+    }
+  }
+  useEffect(()=>{
+    setToken(localStorage.getItem("token"))
+    console.log("token")
+    console.log(token)
+    checkToken()
+  },[])
 
-
+  
 
   
   return (
 
 
     <main className="flex flex-col bg-antiflash-white items-center  justify-between">
-
-
-   
-
-
- 
-
 
       <div className="px-18 mt-24 flex-col  md:mx-auto md:container md:flex-row  border rounded-lg p-8 flex ">
 

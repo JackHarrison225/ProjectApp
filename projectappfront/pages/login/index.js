@@ -1,9 +1,9 @@
-import LogInPage from '../../components/authpages/SignIn'
+import AuthoriseUser from "@/components/authpages/authbox"
 
 export default function LogIn() {
     return (
         <div>
-            <LogInPage/>
+            <AuthoriseUser/>
         </div>
     )
 }

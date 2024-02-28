@@ -6,7 +6,7 @@ import Image from 'next/image';
 import {ImageGalleryOne, ImageGalleryTwo, AuthGif } from './imports'
 
 
-const SignUpPage = ({submitHandler, setAuthProcess, client}) => {
+const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
      const [userObject, setuserObject] = useState({Username:"", Password:"", Password2:""})
      const checkPassword = () => {
           const isRight = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,20}$/g.test(userObject.Password);

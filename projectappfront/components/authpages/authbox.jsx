@@ -1,35 +1,76 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import LogInPage from '../../components/authpages/SignIn'
+import SignUpPage from '../../components/authpages/SignUp'
+import { ApiClient } from "@/app/ApiClient";
+import { Router, useRouter } from "next/router";
 
-const AuthoriseUser = (props) => {
+const AuthoriseUser = () => {
      const [disabled, setDisabled] = useState(false);
      const [authProcess, setAuthProcess] = useState(false);
+     const router = useRouter()
 
      useEffect(() => {
      }, [authProcess])
 
-     const submitHandler = (e) => {
-          
+     const [token, setToken] = useState(null)
+     const [LogIn, setLogIn] = useState(false)
+     
+     const client = new ApiClient(
+         () => token,
+         () => logout()
+     );
+     useEffect(()=>
+     {
+          let StoredToken = localStorage.getItem("token")
+          console.log(StoredToken != null)
+          if(StoredToken != null)
+          {
+               checkToken(StoredToken)
+          }
+     })
+ 
+     const checkToken = async(token) =>
+     {
+          let real = await client.checkToken(token)
+          if (!real){
+               logout()
+          }
+          else {
+               localStorage.setItem("token", token);
+               setToken(token);
+               router.push("/projects")
+          }
+     }
+     const loggedIn = (token) => {
+          localStorage.setItem("token", token);
+          console.log(token)
+          router.push("/projects")
+     };
+ 
+     const logout = () => {
+         setToken(null);
+         localStorage.removeItem("token");
+     };
+     const submitHandler = async(e) => {
           setDisabled(true);
           console.log("Sent to api clinet")
           console.log(e)
-          props.client.login(e.Username, e.Password).then((response) => {
-              setDisabled(false);
-              props.loggedIn(response.data.Token)
-              console.log(response.data.Token)
+          await client.login(e.Username, e.Password)
+          .then((response) => {
+               setDisabled(false);
+               loggedIn(response.data.Token)
           }).catch(() => {
-            alert("Wrong Username or Password.\nTry again.")
-            setDisabled(false);
+               alert("Wrong Username or Password.\nTry again.")
+               setDisabled(false);
           })
       }
       
-     const submitHandlerSignUp = (UserObject) => 
+     const submitHandlerSignUp = async(UserObject) => 
      {
-          props.client.login(UserObject.Username, UserObject.Password).then((response) => {
-          props.loggedIn(response.data.Token)
+          await client.login(UserObject.Username, UserObject.Password).then((response) => {
+          loggedIn(response.data.Token)
           console.log(response.data.Token)
           }).catch((error) => {
                console.error(error)
@@ -39,9 +80,9 @@ const AuthoriseUser = (props) => {
      return (
           <div id="authorisation" className="h-screen w-screen flex flex-col justify-center items-center">
                {!authProcess ? (
-                    <SignIn submitHandler={submitHandler} setAuthProcess={setAuthProcess} />
+                    <LogInPage submitHandler={submitHandler} client setAuthProcess={setAuthProcess}/>
                          ) : (
-                    <SignUp submitHandler={submitHandlerSignUp} client={props.client} setAuthProcess={setAuthProcess} />
+                    <SignUpPage submitHandler={submitHandlerSignUp} client setAuthProcess={setAuthProcess} />
                )}
           </div>
      );

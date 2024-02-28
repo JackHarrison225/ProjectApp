@@ -4,72 +4,74 @@ import React, {useState, useEffects} from 'react'
 import Link from 'next/link'
 import {NextSvg , AngularSvg, JavascriptSvg, ExpressSvg, MongoDbSvg, CPlusSvg, SqlSvg, PythonSvg, PhpSvg } from './imports'
 
-const SignIn = ({setAuthProcess, submitHandler}) => {
-    const [userObject, setuserObject] = useState({Username:"", Password:""})
-    const handleLogin = async (e) => {
-         e.preventDefault()
+const SignIn = (props) => {
+     const [userObject, setuserObject] = useState({Username:"", Password:""})
+     const handleLogin = (e) => {
+          e.preventDefault()
 
-    try {
-         console.log("Signing in user")
-         await submitHandler(userObject);
+          try {
+               console.log("Signing in user")
+               props.submitHandler(userObject);
 
-         } catch (error) {
-              console.error(error);
-              console.error("Failure signing in user");
-         }
-    };
+          } catch (error) {
+               console.error(error);
+               console.error("Failure signing in user");
+          }
+     };
 
-    const handleInputChange = (event) => {
-         setuserObject({
-         ...userObject,
-         [event.target.name]: event.target.value
-         })
-    }
-    const handleSignUp = () => {
-         setAuthProcess(true);
-         console.log("Sign Up");
-    };
-    return (
-        <div className="flex items-center justify-center h-screen w-screen">
-            <div className="p-2 md:p-4 relative flex flex-1 flex-col bg-gray-100 brightness-10 items-center justify-center h-screen ">
+     const handleInputChange = (event) => {
+          setuserObject({
+          ...userObject,
+          [event.target.name]: event.target.value
+          })
+     }
+     const handleSignUp = () => {
+          props.setAuthProcess(false);
+          console.log("Sign Up");
+     };
+     return (
+          <div className="flex items-center justify-center h-screen w-screen">
+               <div className="p-2 md:p-4 relative flex flex-1 flex-col bg-gray-100 brightness-10 items-center justify-center h-screen ">
                
-               <div className="">
-               <div className="mb-10 flex flex-col justify-center items-center">
-               <h3 className="text-5xl font-semibold">Welcome back!</h3>
-               <p className="text-xs text-gray-500 mt-2">Login to access your account. Do not have an account? <Link className="text-blue-600 text-xs" href="#">Sign up instead</Link></p>
-               </div>
-
-               <div className="from-section">
-               <form className="flex flex-col">
-               <label htmlFor="username" className="">
-               <p className="text-sm mb-2">Username</p>
-               <input
-               className="border w-full border-gray-300 rounded-md p-1 mb-4"
-               type="text"
-               placeholder="Username"
-               name="Username"
-               value={userObject.Username}
-               onChange={handleInputChange} />
-               </label>
-               
-               <label htmlFor="password">
-                    <div className="flex  items-center justify-between">
-                    <p className="text-sm mb-2">Password</p>
-                  <p className="text-xs mb-2 text-gray-500">Forgot password?</p>
+                    <div className="">
+                    <div className="mb-10 flex flex-col justify-center items-center">
+                    <h3 className="text-5xl font-semibold">Welcome back!</h3>
+                    <p className="text-xs text-gray-500 mt-2">Login to access your account. Do not have an account? <button className="text-blue-600 text-xs" onclick={handleSignUp}>Sign up instead?</button></p>
                     </div>
-              
-               <input
-               className="border rounded-md w-full p-1 border-gray-300 mb-4"
-               name="password"
-               type="password"
-               placeholder="Password"
-               />
-               </label>
-               <button className="text-white text-sm flex flex-start border w-fit px-3 py-1 rounded-md bg-black hover:bg-gray-800 duration-300">
-               Sign in
-               </button>
-               </form>
-               </div>
+
+                    <div className="from-section">
+                         <form className="flex flex-col" onSubmit={handleLogin}>
+                         <label htmlFor="username" className="text-sm mb-2">
+                              Username
+                         </label>
+                         <input
+                         className="border w-full border-gray-300 rounded-md p-1 mb-4"
+                         type="text"
+                         placeholder="Username"
+                         name="Username"
+                         value={userObject.Username}
+                         onChange={handleInputChange} />
+                         
+                         
+                         <label htmlFor="password">
+                         <div className="flex items-center justify-between">
+                         <p className="text-sm mb-2">Password</p>
+                         <p className="text-xs mb-2 text-gray-500">Forgot password?</p>
+                         </div>
+                         </label>
+                         <input
+                         className="border rounded-md w-full p-1 border-gray-300 mb-4"
+                         name="Password"
+                         type="password"
+                         placeholder="Password"
+                         value={userObject.Password}
+                         onChange={handleInputChange} />
+                        
+                         <button type="submit" className="text-white text-sm flex flex-start border w-fit px-3 py-1 rounded-md bg-black hover:bg-gray-800 duration-300">
+                              Sign in
+                         </button>
+                         </form>
+                    </div>
                </div>
 
                
