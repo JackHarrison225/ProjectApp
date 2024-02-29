@@ -4,7 +4,7 @@ import { Router, useRouter } from 'next/router'
 const NavBarNoAuth = () => {
     const router = useRouter()
     const GoToLogIn =() =>{
-        router.push("login")
+        router.push("/login")
     }
 
     return (

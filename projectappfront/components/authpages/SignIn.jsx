@@ -36,7 +36,7 @@ const SignIn = (props) => {
                     <div className="">
                     <div className="mb-10 flex flex-col justify-center items-center">
                     <h3 className="text-5xl font-semibold">Welcome back!</h3>
-                    <p className="text-xs text-gray-500 mt-2">Login to access your account. Do not have an account? <button className="text-blue-600 text-xs" onclick={handleSignUp}>Sign up instead?</button></p>
+                    <p className="text-xs text-gray-500 mt-2">Login to access your account. Do not have an account? <Link className="text-blue-600 text-xs" href="/signup">Sign up instead?</Link></p>
                     </div>
 
                     <div className="from-section">

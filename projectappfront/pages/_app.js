@@ -77,6 +77,7 @@ function MyApp({ Component, pageProps }) {
     }, 500);
     document.body.className = inter.className;
   },[])
+  
   const logout = ()=>{
     console.log("logout")
     localStorage.setItem("token", null)

@@ -2,24 +2,60 @@
 
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
+
 import Image from 'next/image';
 import {ImageGalleryOne, ImageGalleryTwo, AuthGif } from './imports'
 
+import { ApiClient } from "@/app/ApiClient";
+import { useRouter } from "next/router";
 
-const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
+const SignUpPage = () => {
+     
+     const GoToLogIn =() =>{
+          router.push("/login")
+     }
+     
      const [userObject, setuserObject] = useState({Username:"", Password:"", Password2:""})
+     const router = useRouter()
+
+     const [token, setToken] = useState(null)
+     const [LogIn, setLogIn] = useState(false)
+     
+     const loggedIn = (token) => {
+          localStorage.setItem("token", token);
+          console.log(token)
+          router.push("/projects")
+     };
+
+     const client = new ApiClient(
+          () => token,
+          () => logout()
+     );
+      
+     const submitHandler = async(UserObject) => 
+     {
+          await client.login(UserObject.Username, UserObject.Password).then((response) => {
+          loggedIn(response.data.Token)
+          console.log(response.data.Token)
+          }).catch((error) => {
+               console.error(error)
+          })
+     }
+     
      const checkPassword = () => {
           const isRight = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,20}$/g.test(userObject.Password);
           console.log("checked")
           return isRight ? true : false 
-          }
-     const comparePassword = () => {
-     if(userObject.Password === userObject.Password2) 
-     {
-          return checkPassword();
      }
-     alert("Passwords must match")
-     return false;
+
+     const comparePassword = () => {
+          if(userObject.Password === userObject.Password2) 
+          {
+               return checkPassword();
+          }
+
+          alert("Passwords must match")
+          return false;
      }
 
      const handleInputChange = (event) => {
@@ -28,6 +64,7 @@ const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
           [event.target.name]: event.target.value
           })
      }
+
      const handleSignUp = async (e) => {
           e.preventDefault();
           let userExists;
@@ -54,17 +91,12 @@ const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
                     console.error(err);
                }
                } else {
-               alert("Password must be: \n8-20 characters long.\ncontain at least one special character.\ncontain at least one number.\ncontain at least one capital and lowecase letter.")
-               return;
+                    alert("Password must be: \n8-20 characters long.\ncontain at least one special character.\ncontain at least one number.\ncontain at least one capital and lowecase letter.")
+                    return;
                } 
           }
 
           alert("User name taken")
-     };
-
-     const handleLogin = () => {
-          setAuthProcess(false);
-          console.log("Sign In");
      };
 
 
@@ -75,11 +107,11 @@ const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
                <div className="">
                <div className="mb-10 flex flex-col justify-center items-center">
                <h3 className="text-5xl font-semibold">A new way to collaborate</h3>
-               <p className="text-xs text-gray-500 mt-2">Sign up to become a member. Already have an account? <Link className="text-blue-600 text-xs" href="#">Sign in</Link></p>
+               <p className="text-xs text-gray-500 mt-2">Sign up to become a member. Already have an account? <Link className="text-blue-600 text-xs" href="/login">Sign in</Link></p>
                </div>
 
                <div className="from-section">
-               <form className="flex flex-col">
+               <form className="flex flex-col" onSubmit={handleSignUp}>
                <label htmlFor="username" className="">
                <p className="text-sm mb-2">Username</p>
                <input
@@ -91,17 +123,18 @@ const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
                onChange={handleInputChange} />
                </label>
                
-               <label for="password">
+               <label for="Password">
                     <div className="flex  items-center justify-between">
-                    <p className="text-sm mb-2">Password</p>
-           
+                         <p className="text-sm mb-2">Password</p>
                     </div>
               
                <input
                className="border rounded-md w-full p-1 border-gray-300 mb-4"
-               name="password"
+               name="Password"
                type="password"
                placeholder="Password"
+               onChange={handleInputChange}
+               value={userObject.Password}
                />
                </label>
 
@@ -126,7 +159,7 @@ const SignUpPage = ({submitHandler,  client, setAuthProcess}) => {
 
 
                <button className="text-white text-sm flex flex-start border w-fit px-3 py-1 rounded-md bg-black hover:bg-gray-800 duration-300">
-            Create account
+                    Create account
                </button>
                </form>
                </div>

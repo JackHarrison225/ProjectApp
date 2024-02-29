@@ -37,6 +37,7 @@ const AuthoriseUser = () => {
                router.push("/projects")
           }
      }
+     
      const loggedIn = (token) => {
           localStorage.setItem("token", token);
           console.log(token)
