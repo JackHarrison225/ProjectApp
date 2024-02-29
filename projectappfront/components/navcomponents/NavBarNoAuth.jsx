@@ -18,7 +18,7 @@ const NavBarNoAuth = () => {
             <Link href="#">Contact Us</Link>
             <div>
                 <ul>
-                    <li onClick={GoToLogIn}>Profile</li>
+                    <li >Profile</li>
                     <li onClick={GoToLogIn}>LogIn</li>
                 </ul>
             </div>

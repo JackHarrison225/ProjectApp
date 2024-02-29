@@ -21,15 +21,7 @@ const AuthoriseUser = () => {
          () => token,
          () => logout()
      );
-     useEffect(()=>
-     {
-          let StoredToken = localStorage.getItem("token")
-          console.log(StoredToken != null)
-          if(StoredToken != null)
-          {
-               checkToken(StoredToken)
-          }
-     })
+     
  
      const checkToken = async(token) =>
      {
@@ -39,7 +31,9 @@ const AuthoriseUser = () => {
           }
           else {
                localStorage.setItem("token", token);
-               setToken(token);
+               setTimeout(function(){
+                    setToken(token);
+               }, 50);
                router.push("/projects")
           }
      }
@@ -61,6 +55,7 @@ const AuthoriseUser = () => {
           .then((response) => {
                setDisabled(false);
                loggedIn(response.data.Token)
+               checkToken(token)
           }).catch(() => {
                alert("Wrong Username or Password.\nTry again.")
                setDisabled(false);

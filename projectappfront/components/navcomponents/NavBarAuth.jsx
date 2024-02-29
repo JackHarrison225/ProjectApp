@@ -5,14 +5,14 @@ import { ApiClient } from '@/app/ApiClient'
 
 import Link from 'next/link'
 
-const NavBarAuth = ({logout}) => {
+const NavBarAuth = (props) => {
     const [token , setToken] = useState(null)
     const [showDropDown, setShowDropDown] = useState(false)
     const client = new ApiClient(
         () => token,
         () => logout()
     );
-
+    const logout = props.logout
     
     const checkToken = async(token) =>
     {
@@ -38,14 +38,13 @@ const NavBarAuth = ({logout}) => {
                 localStorage.removeItem("token")
             }
         }
-    }, []);
+    });
+
     const handleDropDownClick = () => {
         setShowDropDown(!showDropDown)
     }
 
     return (
- 
-        
         <div className="flex justify-between bg-gunmetal shadow-lg items-center w-full mx-auto p-6">
             <div>
             <h2 className="text-white">
@@ -54,7 +53,7 @@ const NavBarAuth = ({logout}) => {
             </div>
             
             <div className="flex justify-between items-center w-auto">
-            <Link href="#" className="hidden md:inline-block mr-4 text-white">Home</Link>
+            <Link href=".." className="hidden md:inline-block mr-4 text-white">Home</Link>
             <Link href="#" className="hidden md:inline-block mr-4 text-white">Contact Us</Link>
             <div className="relative">
                 <span 
@@ -68,7 +67,7 @@ const NavBarAuth = ({logout}) => {
                                 <Link onClick={handleDropDownClick} href="/projects" className="p-1">Profile</Link>
                                 <Link href="#" className="sm:hidden mr-4 p-1">Contact</Link>
                             
-                                <li className="p-1" onClick={logOut}>Logout</li>
+                                <li className="p-1" onClick={logout}>Logout</li>
                               
                             </ul>
             

@@ -48,43 +48,8 @@ export default function Projects(props) {
   const tags = Array.from(new Set(initialProjects.flatMap(project => project.tags)))
 
   const filteredProjects = filter ? projects.filter(projects => projects.tags.includes(filter)) : projects
-
-  const router = useRouter()
-  const checkToken = async() =>
-  {
-    if(token == null)
-    {
-      let storedToken = localStorage.getItem("token")
-      console.log(storedToken)
-      if (storedToken === null)
-      {
-        console.log(storedToken)
-        localStorage.removeItem("token")
-        router.push("/login")
-      }
-      let real = await client.checkToken(storedToken)
-      if (real.data == false){
-        localStorage.removeItem("token")
-        router.push("/login")
-      }
-    }
-    else
-    {
-      let real = await client.checkToken(token)
-      if (real.data == false){
-        localStorage.removeItem("token")
-        router.push("/login")
-      }
-    }
-  }
-  useEffect(()=>{
-    setToken(localStorage.getItem("token"))
-    console.log("token")
-    console.log(token)
-    checkToken()
-  },[])
-
   
+  const router = useRouter()
 
   
   return (

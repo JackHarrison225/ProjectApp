@@ -1,17 +1,15 @@
 'use client'
 import React, {useState, useEffect} from 'react'
 
-import NavBarAuth from '../components/navcomponents/NavBarAuth'
+import NavBarAuth from '@/components/navcomponents/NavBarAuth';
+import NavBarNoAuth from '@/components/navcomponents/NavBarNoAuth'
 
-import NavBarNoAuth from '../components/navcomponents/NavBarNoAuth'
+import UnAuthHomePage from '@/components/UnAuthHomePage'
+import AuthHomePage from '@/components/AuthHomePage'
 
-import Home from './projects/index';
-import UnAuthHomePage from '../components/UnAuthHomePage'
-import AuthHomePage from '../components/AuthHomePage'
+import {ApiClient} from '@/app/ApiClient'
 
-import {ApiClient} from '../app/ApiClient'
-
-import Dashboard from "../components/dashboard";
+import Dashboard from "@/components/dashboard";
 import AuthoriseUser from "@/components/authpages/authbox"
 
 export default function Landing ({props}){
@@ -25,7 +23,7 @@ export default function Landing ({props}){
         () => logout()
     );
     
-    useEffect(async() => {
+    useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
             let val = checkToken(token);
@@ -38,7 +36,7 @@ export default function Landing ({props}){
             }
 
         }
-    }, []);
+    },[]);
 
     
     const login = (token) => {

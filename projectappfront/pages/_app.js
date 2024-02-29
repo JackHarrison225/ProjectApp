@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
 
   const [token, setToken] = useState(null);
   const [LogIn, setLogIn] = useState(false)
-  const [HasToken, setHasToken] = useState(true)
+  const [HasToken, setHasToken] = useState(false)
 
   const client = new ApiClient(
     () => token,
@@ -29,6 +29,11 @@ function MyApp({ Component, pageProps }) {
     if(token === null)
     {
       let storedToken = localStorage.getItem("token")
+      
+        storedToken = localStorage.getItem("token")
+      
+      console.log("storedToken")
+      console.log(storedToken)
       let real = await client.checkToken(storedToken)
       if (real.data == true){
           console.log("Set Token")
@@ -37,7 +42,8 @@ function MyApp({ Component, pageProps }) {
       }
       else
       {
-        setToken(null)
+        localStorage.removeItem("token")
+        //router.push("/login")
       }
     }
     else
@@ -49,7 +55,8 @@ function MyApp({ Component, pageProps }) {
       }
       else
       {
-        setToken(null)
+        localStorage.removeItem("token")
+        //router.push("/login")
       }
     }
   }
@@ -57,18 +64,24 @@ function MyApp({ Component, pageProps }) {
   const noNavBarPaths = ['/login', '/signup']
  
   useEffect(()=>{
-    checkToken()
+    console.log(token)
+    setTimeout(function(){
+      checkToken()
+    }, 500);
+    console.log("After " + token)
   },[token])
   
   useEffect(()=>{
-    checkToken()
+    setTimeout(function(){
+      checkToken()
+    }, 500);
     document.body.className = inter.className;
   },[])
-  // const logout = ()=>{
-  //   console.log("logout")
-  //   localStorage.setItem("token", null)
-  //   setToken(null)
-  // }
+  const logout = ()=>{
+    console.log("logout")
+    localStorage.setItem("token", null)
+    setToken(null)
+  }
 
 
   return (
@@ -79,7 +92,7 @@ function MyApp({ Component, pageProps }) {
         </Head>
         {!noNavBarPaths.includes(router.pathname)? (
           HasToken? (
-              <NavBarAuth /> // logout={logout}/>
+              <NavBarAuth logout={logout}/>
             ):(
               <NavBarNoAuth />
             )
