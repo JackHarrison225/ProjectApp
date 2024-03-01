@@ -51,7 +51,7 @@ const AuthHomePage = () => {
                                     title={project.title}
                                     devPicture={devPic}
                                     description={project.description}
-                                    tags={project.tags.join(", ")} />
+                                    tags={project.tags.join(" ")} />
                                 </div>
                             ))}
                         </div>

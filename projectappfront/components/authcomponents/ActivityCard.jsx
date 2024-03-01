@@ -13,12 +13,9 @@ const ActivityCard = ({title, itemOne, itemTwo, itemThree, itemFour}) => {
                 <div>
                     <h3 className="font-semibold mb-4"><p></p>{title}</h3>
                 </div>
-            
             <ul>
-                
             </ul>
-
-
+            
             </div>
         </div>
     )

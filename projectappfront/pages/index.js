@@ -1,81 +1,44 @@
 'use client'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import {useApiClient} from '../contexts/ApiClientContext'
+import { useRouter } from 'next/router';
 
-import NavBarAuth from '../components/navcomponents/NavBarAuth'
 
-import NavBarNoAuth from '../components/navcomponents/NavBarNoAuth'
-
-import Home from './projects/index';
-import UnAuthHomePage from '../components/UnAuthHomePage'
-import AuthHomePage from '../components/AuthHomePage'
-
-import {ApiClient} from '../app/ApiClient'
-
-import Dashboard from "../components/dashboard";
-import AuthoriseUser from "@/components/authpages/authbox"
 
 export default function Landing ({props}){
 
     //#####  user authentication  #####//  
     const [token, setToken] = useState(null);
-    const [LogIn, setLogIn] = useState(false)
+    const {client, checkToken} = useApiClient()
+
+    const router = useRouter()
     
-    const client = new ApiClient(
-        () => token,
-        () => logout()
-    );
-    
-    useEffect(async() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            let val = checkToken(token);
-            if (val == true)
-            {
-                setToken(token)
-            }
-            else{
-                localStorage.removeItem("token")
-            }
-
-        }
-    }, []);
-
-    
-    const login = (token) => {
-        localStorage.setItem("token", token);
-        setToken(token);
-    };
-
-    const checkToken = (token) =>
-    {
-        let real = client.checkToken(token)
-        if (real == false){
-            logout()
-        }
-    }
-
-    useEffect(() => {
+    // useEffect(() => { // should not be async, only checking and retrieving the token if it is present in local storage. 
+    //     const tokenVerification = async () => {
+    //         const storedToken = localStorage.getItem("token");
+    //         if (storedToken) {
+    //             const isValid = await checkToken(storedToken);
+    //             if (isValid) {
+    //                 router.push("/signup")
+    //             } else {
+    //                 router.push("/login")
+    //             }
+    //         } else {
+    //             router.push("/home")
+    //         }
+    //     }
         
-    }, [token]);
+    //     tokenVerification()
 
-    const logout = () => {
-        setToken(null);
-        localStorage.removeItem("token");
-    };
-    //#################################//  
+    // }, []);
+
+
 
 
     return (
  
         <div>
-        {
-            token?(
-                    <AuthHomePage />
-                ) : (
-                    <UnAuthHomePage/>
-                )
-        }
-
+        Redirecting....
         </div>
     )
 }

@@ -1,18 +1,53 @@
-import React, { createContext, useEffect, useState} from 'react'
-import {Becca, Morrillo} from './imports'
+import React, { createContext, useEffect, useState} from 'react';
+import {Becca, Morrillo} from './imports';
+import {useApiClient} from './ApiClientContext';
 
-export const ProjectContext = createContext()
+
+export const ProjectContext = createContext();
 
 
 
 
 export const ProjectProvider = ({ children }) => {
     const [projects, setProjects] = useState([])
+    const [currentProject, setCurrentProject] = useState(undefined)
     const [recommendedProjects, setRecommendedProjects] = useState([])
     const [userProjects, setUserProjects] = useState([])
     const [savedProjects, setSavedProjects] = useState([])
     const [members, setMembers] = useState([])
     const [devs, setDevs] = useState([])
+
+    const {client, isAuthenticated} = useApiClient()
+
+
+
+
+
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                if (isAuthenticated) {
+                    const _id = localStorage.getItem("userid")
+                    console.log("current userID:", _id)
+                  
+                        if (_id) {
+                            const userProjects = await client.getUserProjects(_id)
+                            console.log("Data containing user Projects:", userProjects);
+                            setProjects(userProjects.data)
+                        }
+                }
+
+
+            } catch (error) {
+                console.log("Error fetching user data", error)
+               
+            }
+        }
+
+        fetchUserData()
+    }, [isAuthenticated, client])
+
 
     useEffect(() => {
         const initialProjects = [
@@ -43,6 +78,8 @@ export const ProjectProvider = ({ children }) => {
 
 
     useEffect(() => {
+
+        
         const projectMembers = [
             {id: 1, username: "gendry"},
             {id: 2, username: "davos"},

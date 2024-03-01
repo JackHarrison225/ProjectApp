@@ -12,18 +12,12 @@ const HomeDevCard = ({username, picture }) => {
                 src={picture}
                 width={250}
                 height={250}
-                
                 style={{objectFit:"cover"}}/>
                 <h3 className="text-md ">
                 <p>Welcome Back <span className="font-semibold">@{username}</span></p>
                 </h3>
-                
-
-
             </div>
-
         </div>
-
     )
 }
 

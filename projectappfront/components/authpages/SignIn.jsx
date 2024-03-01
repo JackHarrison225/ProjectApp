@@ -1,34 +1,82 @@
 "use client";
 
-import React, {useState, useEffects} from 'react'
-import Link from 'next/link'
-import {NextSvg , AngularSvg, JavascriptSvg, ExpressSvg, MongoDbSvg, CPlusSvg, SqlSvg, PythonSvg, PhpSvg } from './imports'
+import React, {useState, useContext, useEffect} from 'react';
+import Link from 'next/link';
+import {NextSvg , AngularSvg, JavascriptSvg, ExpressSvg, MongoDbSvg, CPlusSvg, SqlSvg, PythonSvg, PhpSvg } from './imports';
+import {useApiClient} from '../../contexts/ApiClientContext';
+import { useRouter } from "next/router";
 
-const SignIn = (props) => {
-     const [userObject, setuserObject] = useState({Username:"", Password:""})
-     const handleLogin = (e) => {
-          e.preventDefault()
+const SignIn = () => {
+     const [disabled, setDisabled] = useState(false);
+     const router = useRouter();
+     const {client, setIsAuthenticated} = useApiClient();
+     
 
-          try {
-               console.log("Signing in user")
-               props.submitHandler(userObject);
+     const submitHandler = (e) => {
 
-          } catch (error) {
-               console.error(error);
-               console.error("Failure signing in user");
-          }
-     };
 
-     const handleInputChange = (event) => {
-          setuserObject({
-          ...userObject,
-          [event.target.name]: event.target.value
-          })
+
+          e.preventDefault();
+          setDisabled(true);
+
+          const userNameInformation = e.target.Username.value
+          const passwordInfo = e.target.Password.value
+ 
+
+
+          client.login(e.target.Username.value, e.target.Password.value)
+               .then((response) => {
+                    console.log(response)
+                    
+                    localStorage.setItem("token", response.data.Token)
+                    localStorage.setItem("userid", response.data.UserId)
+                    localStorage.setItem("username", e.target.Username.value)
+                    setIsAuthenticated(true)
+                    console.log("Token log during login", response.data.Token)
+                    router.push(`/profile/${response.data.UserId}`)
+               })
+               .catch((error) => {
+                    console.error("An error occurred, request could not be fulfilled", error);
+                    alert("An error occured, request could not be fulfilled", error)
+                    setDisabled(false)
+                    throw error
+               })
+
+           
+     
+               console.log(userNameInformation)
+               console.log(passwordInfo)
      }
+
+
+     // const handleLogin = (e) => {
+     //      e.preventDefault()
+     //      try {
+     //           console.log("Signing in user")
+     //           props.submitHandler(userObject);
+
+     //      } catch (error) {
+     //           console.error(error);
+     //           console.error("Failure signing in user");
+     //      }
+     // };
+
+     // const handleInputChange = (event) => {
+     //      setuserObject({
+     //      ...userObject,
+     //      [event.target.name]: event.target.value
+     //      })
+     // }
+
      const handleSignUp = () => {
-          props.setAuthProcess(false);
+          router.push("/signup")
           console.log("Sign Up");
      };
+
+   
+
+
+
      return (
           <div className="flex items-center justify-center h-screen w-screen">
                <div className="p-2 md:p-4 relative flex flex-1 flex-col bg-gray-100 brightness-10 items-center justify-center h-screen ">
@@ -40,7 +88,7 @@ const SignIn = (props) => {
                     </div>
 
                     <div className="from-section">
-                         <form className="flex flex-col" onSubmit={handleLogin}>
+                         <form className="flex flex-col" onSubmit={submitHandler}>
                          <label htmlFor="username" className="text-sm mb-2">
                               Username
                          </label>
@@ -49,8 +97,8 @@ const SignIn = (props) => {
                          type="text"
                          placeholder="Username"
                          name="Username"
-                         value={userObject.Username}
-                         onChange={handleInputChange} />
+                         disabled={disabled}
+                        />
                          
                          
                          <label htmlFor="password">
@@ -64,10 +112,13 @@ const SignIn = (props) => {
                          name="Password"
                          type="password"
                          placeholder="Password"
-                         value={userObject.Password}
-                         onChange={handleInputChange} />
+                         disabled={disabled}
+                         />
                         
-                         <button type="submit" className="text-white text-sm flex flex-start border w-fit px-3 py-1 rounded-md bg-black hover:bg-gray-800 duration-300">
+                         <button 
+                         type="submit" 
+                         className="text-white text-sm flex flex-start border w-fit px-3 py-1 rounded-md bg-black hover:bg-gray-800 duration-300"
+                         disabled={disabled}>
                               Sign in
                          </button>
                          </form>
@@ -102,9 +153,6 @@ const SignIn = (props) => {
                           className="absolute "/>
                     </div>
 
-                         
-
-
                     </div>
                     <div className="flex flex-1 justify-center items-center">
                     <h3 className="md:text-xl lg:text-3xl text-gray-200">
@@ -112,11 +160,8 @@ const SignIn = (props) => {
                     </h3>
                     </div>
 
-
-
-
-
                </div>
+
 
                <div className="relative flex flex-col flex-1 overflow-hidden w-full items-center ">
                     <div className="flex flex-1 items-center w-full justify-center">
@@ -145,9 +190,6 @@ const SignIn = (props) => {
                          <CPlusSvg
                           className="absolute "/>
                     </div>
-
-                         
-
 
                     </div>
                </div>
