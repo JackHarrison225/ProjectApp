@@ -1,6 +1,7 @@
 import React from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link'
+import AuthHomePage from '@/components/AuthHomePage';
 
 export default function Profile() {
     const router = useRouter()
@@ -9,5 +10,6 @@ export default function Profile() {
     return <div>
       
         <Link href="/createpost"> Create Post </Link>
+        <AuthHomePage />
     </div>
 }

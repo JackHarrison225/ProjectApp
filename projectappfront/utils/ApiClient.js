@@ -102,15 +102,45 @@ export class ApiClient {
      }
      
 
-     async getUserProjects(_id) {
+     async getCreatedProjects(_id) {
           console.log("Sending _id", _id)
-          return this.authenticatedCall ("get", `${url}projects/${_id}`)
+          return this.authenticatedCall ("get", `${url}createdProjects/${_id}`)
+     }
+
+     async getSavedProjects(_id) {
+          console.log("Sending _id", _id)
+          return this.authenticatedCall ("get", `${url}savedProjects/${_id}`)
+     }
+
+     async getFavouriteProjects(_id) {
+          console.log("Sending _id", _id)
+          return this.authenticatedCall ("get", `${url}favouriteProjects/${_id}`)
+     }
+
+     async getOngoingProjects(_id) {
+          console.log("Sending _id", _id)
+          return this.authenticatedCall ("get", `${url}ongoingProjects/${_id}`)
      }
 
      async CreateProject(title, tags, description, picture, token)
      {
           console.log("Creating project...")
           return this.authenticatedCall("post", `${url}CreateProject`, {title,  tags, description, picture, token})
+     }
+
+     async addToFavourties(_id) {
+          console.log("Adding to favourites", _id)
+          this.authenticatedCall("post", `${url}addToFavouriteProjects/${_id}`)
+     }
+
+     async addToSavedProjects(_id) {
+          console.log("Adding to savedProjects", _id)
+          this.authenticatedCall("post", `${url}addToSavedProjects/${_id}`)
+     }
+
+     async addToOngoingProjects(_id) {
+          console.log("Adding to Ongoing projects", _id)
+          this.authenticatedCall("post", `${url}addToOngoingProjects/${_id}`)
      }
 
      async deleteProject(id)

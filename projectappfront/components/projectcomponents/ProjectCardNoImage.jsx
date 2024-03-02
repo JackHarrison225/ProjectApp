@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React,{useState} from 'react'
 
 const ProjectCardNoImg = ({title, tags, description, postedDate, devPicture, projPicture }) => {
-    const tagArray = tags.split(",")
+    const tagArray = tags.split(" ") || []
 
     const [expanded, setExpanded] = useState(false)
 
