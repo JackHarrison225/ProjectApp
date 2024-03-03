@@ -1,8 +1,9 @@
 import Image from 'next/image'
 
+import React, {useEffect, useState} from 'react'
+
 const HomeDevCard = ({username, picture }) => {
 
-    
     return (
         <div className=''>
             <div className="mb-3 p-3 flex flex-col border  rounded-lg shadow-md border-l-4 ">

@@ -17,6 +17,8 @@ export const ProjectProvider = ({ children }) => {
     const [userFavouriteProjects, setUserFavouriteProjects] = useState([])
     const [userOngoingProjects, setUserOngoingProjects] = useState([])
 
+    const [userName, setUserName] = useState(null)
+
 
     const [currentProject, setCurrentProject] = useState(undefined)
     const [recommendedProjects, setRecommendedProjects] = useState([])
@@ -37,6 +39,10 @@ export const ProjectProvider = ({ children }) => {
             try {
                 if (isAuthenticated) {
                     const _id = localStorage.getItem("userid")
+                    const username = localStorage.getItem("username")
+                    console.log("This should be the username:", username)
+
+                    setUserName(username)
                     console.log("current userID:", _id)
                   
                         if (_id) {
@@ -50,6 +56,7 @@ export const ProjectProvider = ({ children }) => {
                             setUserSavedProjects(savedProjects.data)
                             setUserFavouriteProjects(favouriteProjects.data)
                             setUserOngoingProjects(ongoingProjects.data)
+                           
                             console.log("These are the projects the user created:", userCreatedProjects)
                             console.log("These are the projects the user saved:", userSavedProjects)
                             console.log("These are the projects the user favorited:", userFavouriteProjects)
@@ -120,7 +127,7 @@ export const ProjectProvider = ({ children }) => {
 
 
     return (
-        <ProjectContext.Provider value={{ userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects}}>
+        <ProjectContext.Provider value={{ userName, userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects}}>
             {children}
         </ProjectContext.Provider>
     )

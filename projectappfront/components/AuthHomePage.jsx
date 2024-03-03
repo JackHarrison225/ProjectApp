@@ -9,7 +9,7 @@ import ProjectCardNoImg from "./projectcomponents/ProjectCardNoImage";
 
 
 const AuthHomePage = () => {
-    const { userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects } = useProjectsContext()
+    const {userName, userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects } = useProjectsContext()
     
     const firstThree = userCreatedProjects.slice(0, 3);
 
@@ -24,10 +24,31 @@ const AuthHomePage = () => {
 
     const [sideBarClick, setSideBarClick] = useState(false);
 
+    const [selectedCategory, setSelectedCategory] = useState("Your Projects")
+
+    const projectCategories = [
+        {
+            title: 'Your Activities',
+            items: [
+                {name: "Your Projects", projects: userCreatedProjects},
+                {name: "Saved projects", projects: userSavedProjects},
+                {name: "Favourite Projects", projects: userFavouriteProjects},
+                {name: "Ongoing Projects", projects: userOngoingProjects}
+            ]
+        }
+    ]
+
     const handleSideBarClick = () => {
         setSideBarClick(!sideBarClick)
     }
 
+    const handleCategoryChange = (categoryName) => {
+        setSelectedCategory(categoryName)
+    }
+
+
+
+    const activeCategoryProjects = projectCategories.find(category => category.items.name === selectedCategory)?.items.projects || []
     return (
         <div>
             <section className="p-4 h-screen">
@@ -37,22 +58,25 @@ const AuthHomePage = () => {
                     <div className="">
                  <HomeDevCard
                     className="rounded-full"
+                    username={userName}
                     picture={devPic}/>
                     </div>
                     <div className="dev-activity">
-                    <ActivityCard
-                    title='Your Activities'
-                    itemOne='Ongoing Projects'
-                    itemTwo='Your Projects'
-                    itemThree='Recommended For You'
-                    itemFour='Saved Projects'/>
+                        {projectCategories.map((category, index) => (
+                            <ActivityCard key={index}
+                            
+                            title={category.title}
+                            categories={category.items}
+                                                />
+                        ))}
+
                     </div>
                 </div>
                 
                 <div className="flex-grow h-screen flex-[80%]">
                     <div>
                         <h3>
-                            Your On going Projects
+                           {selectedCategory}
                         </h3>
                         <div>
                             {firstThree.map((project) => (
