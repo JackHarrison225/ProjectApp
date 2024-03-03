@@ -23,7 +23,7 @@ export const ApiClientProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [tokenStore, setTokenStore] = useState(null)
-
+    const [userName, setUserName] = useState(null)
     
         
     const logout = () => {
@@ -38,8 +38,12 @@ export const ApiClientProvider = ({children}) => {
             console.log(storedToken)
             if (storedToken) {
                 const isValid = await checkToken(storedToken);
+                const username = localStorage.getItem("username")
+                console.log("Username in apicient:", username)
+                
                 checkToken(storedToken);
                 setTokenStore(storedToken)
+                setUserName(username)
                 
                 setIsAuthenticated(isValid)
            
@@ -84,7 +88,7 @@ export const ApiClientProvider = ({children}) => {
 
 
     return (
-        <ApiClientContext.Provider value={{ client, logout, checkToken, isAuthenticated, setIsAuthenticated }}>
+        <ApiClientContext.Provider value={{ client, userName, logout, checkToken, isAuthenticated, setIsAuthenticated }}>
           {children}
         </ApiClientContext.Provider>
       );

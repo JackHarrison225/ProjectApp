@@ -17,7 +17,7 @@ export const ProjectProvider = ({ children }) => {
     const [userFavouriteProjects, setUserFavouriteProjects] = useState([])
     const [userOngoingProjects, setUserOngoingProjects] = useState([])
 
-    const [userName, setUserName] = useState(null)
+
 
 
     const [currentProject, setCurrentProject] = useState(undefined)
@@ -39,10 +39,9 @@ export const ProjectProvider = ({ children }) => {
             try {
                 if (isAuthenticated) {
                     const _id = localStorage.getItem("userid")
-                    const username = localStorage.getItem("username")
-                    console.log("This should be the username:", username)
 
-                    setUserName(username)
+
+
                     console.log("current userID:", _id)
                   
                         if (_id) {
@@ -75,6 +74,25 @@ export const ProjectProvider = ({ children }) => {
 
         fetchUserData()
     }, [isAuthenticated, client])
+
+
+    
+    const saveProject = async (id) => {
+        try {
+            await client.addToSavedProjects(id)
+        } catch(error) {
+            console.error("There was a problem saving this project", error)
+        }
+    }
+
+    const favouriteProject = async (id) => {
+        try {
+            await client.addToFavourites(id)
+        } catch(error) {
+     
+            console.error("There was a problem adding project to favourites", error)
+        }
+    }
 
 
     // useEffect(() => {
@@ -127,7 +145,7 @@ export const ProjectProvider = ({ children }) => {
 
 
     return (
-        <ProjectContext.Provider value={{ userName, userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects}}>
+        <ProjectContext.Provider value={{ userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects, saveProject, favouriteProject}}>
             {children}
         </ProjectContext.Provider>
     )

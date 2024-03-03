@@ -15,7 +15,7 @@ const ActivityCard = ({title, categories, onCategorySelect}) => {
                 </div>
                 <div>
                 {categories.map((category, index) => (
-                        <p className="mb-2" key={index}>{category.name}</p>
+                        <p className="mb-2" key={index} onClick={() => onCategorySelect(category.name)}>{category.name}</p>
                     ))}
                 </div>
 

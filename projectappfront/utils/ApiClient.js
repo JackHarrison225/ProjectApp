@@ -21,15 +21,25 @@ export class ApiClient {
                data, 
           }).catch((error) => {
                console.log(error)
-               if (error.response.status === 403) 
-               {
-                    this.logoutHandler();
-                    return Promise.reject();
-               } 
-               else 
-               {
-                    throw error;
+               if (error.response) {
+                    switch (error.response.status) {
+                         case 400:
+                              alert("You cannot add the same project more than once. Please choose a different project.")
+                              break;
+                         case 403:
+                              alert("Access forbidden. Please log in again.")
+                              this.logoutHandler();
+                              break;
+                         default:
+                              alert("There was an error, please try again.")
+                         } 
+               } else {
+                    alert("A network error occured. Please check your connection and try again.")
                }
+
+               return false;
+
+
      });
      }
 
@@ -128,7 +138,7 @@ export class ApiClient {
           return this.authenticatedCall("post", `${url}CreateProject`, {title,  tags, description, picture, token})
      }
 
-     async addToFavourties(_id) {
+     async addToFavourites(_id) {
           console.log("Adding to favourites", _id)
           this.authenticatedCall("post", `${url}addToFavouriteProjects/${_id}`)
      }

@@ -5,11 +5,14 @@ import HomeDevCard from '../components/authcomponents/HomeDevCard'
 import ActivityCard from '../components/authcomponents/ActivityCard'
 import devPic from "../public/images/headshot.jpg"
 import { useProjectsContext } from "../contexts/ProjectsContexts";
+import {useApiClient} from "../contexts/ApiClientContext"
 import ProjectCardNoImg from "./projectcomponents/ProjectCardNoImage";
 
 
 const AuthHomePage = () => {
-    const {userName, userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects } = useProjectsContext()
+    const {userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects, saveProject, favouriteProject } = useProjectsContext()
+
+    const {userName} = useApiClient()
     
     const firstThree = userCreatedProjects.slice(0, 3);
 
@@ -31,7 +34,7 @@ const AuthHomePage = () => {
             title: 'Your Activities',
             items: [
                 {name: "Your Projects", projects: userCreatedProjects},
-                {name: "Saved projects", projects: userSavedProjects},
+                {name: "Saved Projects", projects: userSavedProjects},
                 {name: "Favourite Projects", projects: userFavouriteProjects},
                 {name: "Ongoing Projects", projects: userOngoingProjects}
             ]
@@ -47,8 +50,10 @@ const AuthHomePage = () => {
     }
 
 
+      const projects = projectCategories[0]['items'].find(item => item.name === selectedCategory)?.projects || []
+      console.log(projects)
 
-    const activeCategoryProjects = projectCategories.find(category => category.items.name === selectedCategory)?.items.projects || []
+    // const activeCategoryProjects = projectCategories.find(category => category.items.name === selectedCategory)?.items.projects || []
     return (
         <div>
             <section className="p-4 h-screen">
@@ -67,6 +72,7 @@ const AuthHomePage = () => {
                             
                             title={category.title}
                             categories={category.items}
+                            onCategorySelect={handleCategoryChange}
                                                 />
                         ))}
 
@@ -79,14 +85,16 @@ const AuthHomePage = () => {
                            {selectedCategory}
                         </h3>
                         <div>
-                            {firstThree.map((project) => (
+                            {projects.map((project) => (
                             
                                 <div key={project._id}>
                                     <ProjectCardNoImg
                                     title={project.Title}
                                     devPicture={devPic}
                                     description={project.Description}
-                                    tags={project.Tags} />
+                                    tags={project.Tags}
+                                    onProjectSave={() => saveProject(project._id)}
+                                    onProjectFavourite={() => favouriteProject(project._id)}/>
                                 </div>
                             ))}
                         </div>
