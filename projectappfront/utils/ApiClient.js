@@ -140,17 +140,22 @@ export class ApiClient {
 
      async addToFavourites(_id) {
           console.log("Adding to favourites", _id)
-          this.authenticatedCall("post", `${url}addToFavouriteProjects/${_id}`)
+          return this.authenticatedCall("post", `${url}addToFavouriteProjects/${_id}`)
      }
 
      async addToSavedProjects(_id) {
           console.log("Adding to savedProjects", _id)
-          this.authenticatedCall("post", `${url}addToSavedProjects/${_id}`)
+          return this.authenticatedCall("post", `${url}addToSavedProjects/${_id}`)
      }
 
      async addToOngoingProjects(_id) {
           console.log("Adding to Ongoing projects", _id)
-          this.authenticatedCall("post", `${url}addToOngoingProjects/${_id}`)
+          return this.authenticatedCall("post", `${url}addToOngoingProjects/${_id}`)
+     }
+
+     async removeFromCategory(projectId, categoryName) {
+          console.log(`Removing project ${projectId} from ${categoryName}`)
+          return this.authenticatedCall("patch", `${url}removeProjectFromCategory`, {projectId, categoryName})
      }
 
      async deleteProject(id)

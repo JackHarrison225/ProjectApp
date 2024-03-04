@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React,{useState} from 'react'
 import {useProjectsContext} from '../../contexts/ProjectsContexts'
 
-const ProjectCardNoImg = ({title, tags, description, postedDate, devPicture, projPicture, onProjectSave, onProjectFavourite }) => {
+const ProjectCardNoImg = ({title, tags, description, categoryname, devPicture, projPicture, onProjectSave, onProjectFavourite, onProjectRemove }) => {
     const tagArray = tags.split(" ") || []
 
     const [expanded, setExpanded] = useState(false)
@@ -39,7 +39,7 @@ const ProjectCardNoImg = ({title, tags, description, postedDate, devPicture, pro
     <h3 className="text-lg font-bold ">
     {title}
     </h3>
-    <p>{postedDate}</p>
+    <p>{categoryname}</p>
     
     <p className="text-sm text-gray-600">
     {tagArray.map((tag, index) => (
@@ -69,6 +69,10 @@ const ProjectCardNoImg = ({title, tags, description, postedDate, devPicture, pro
         </div>
         <div>
             <p onClick={() => onProjectFavourite()}>Favourite</p>
+        </div>
+
+        <div>
+            <p onClick={() => onProjectRemove()}>Remove Project</p>
         </div>
         <div></div>
     </div>

@@ -79,7 +79,8 @@ export const ProjectProvider = ({ children }) => {
     
     const saveProject = async (id) => {
         try {
-            await client.addToSavedProjects(id)
+            const savedProject = await client.addToSavedProjects(id)
+            setUserSavedProjects(prevProjects => [...prevProjects, savedProject.data])
         } catch(error) {
             console.error("There was a problem saving this project", error)
         }
@@ -87,65 +88,54 @@ export const ProjectProvider = ({ children }) => {
 
     const favouriteProject = async (id) => {
         try {
-            await client.addToFavourites(id)
+            const favouriteProject = await client.addToFavourites(id)
+            setUserFavouriteProjects(prevProjects => [...prevProjects, favouriteProject.data])
         } catch(error) {
      
             console.error("There was a problem adding project to favourites", error)
         }
     }
 
+    const removeProject = async (id, categoryName) => {
+        try {
+            console.log("Id for project being removed", id)
+            console.log("Category name for project being removed", categoryName)
+             await client.removeFromCategory(id, categoryName)
+            
+            // this switch case statement returns the projects that have not removed. It updates state on project removal from the matching categories. 
+            switch(categoryName) {
+                case 'SavedProjects':
+                    console.log("removing from saved projects...")
+                    setUserSavedProjects(prevProjects => prevProjects.filter(project => project._id !== id))
+                    console.log("Project removed from saved projects.")
+                    break;
+                case 'FavouriteProjects':
+                    console.log("removing from favourite projects...")
+                    setUserFavouriteProjects(prevProjects => prevProjects.filter(project => project._id !== id))
+                    console.log("Project removed from favourite projects.")
+                    break;
+                case 'OngoingProjects':
+                    console.log("removing from on going projects...")
+                    setUserOngoingProjects(prevProjects => prevProjects.filter(project => project._id !== id))
+                    console.log("Project removed from on going projects.")
+                    break;
+                default: 
+                    console.error("Unknown category", categoryName)
+            }
+           
+            console.log("Project", id, "has been succesfully removed from", categoryName,".")
+        } catch(error) {
+            console.log("There was a problem removing this project from: ", categoryName)
+            console.error("This is the error from the project removal: ", error)
+        }
+    }
 
-    // useEffect(() => {
-    //     const initialProjects = [
-    //         { _id: 1, title: "Project 1", tags: ["django", "html", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 2], owner: "Bob"},
-    //         { _id: 2, title: "Project 2", tags: ["next", "react", "node"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [2,3], owner: "Alice" },
-    //         { _id: 3, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-    //         { _id: 4, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-    //         { _id: 5, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-    //         { _id: 6, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-    //         { _id: 7, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-    //       ];
-    //       setProjects(initialProjects);
-    //       setRecommendedProjects(initialProjects)
-    //       setUserProjects(initialProjects)
-    // }, [])
 
-    // useEffect(() => {
-    //     const savedprojects = [
-    //         { _id: 1, title: "Project 1", tags: ["django", "html", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 2], owner: "Bob"},
-  
-    //         { _id: 4, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-          
-    //         { _id: 7, title: "Project 3", tags: ["vue", "javascript", "css"], description: "The Dynamic Event Scheduler is a Python project designed to streamline event management through a user-friendly web interface. Built with Flask, SQLAlchemy, and React, it allows users to effortlessly create, edit, and organize events. Features include secure user authentication, customizable event categorization, and automated notifications via email or SMS using Celery and Twilio. Ideal for individuals and organizations seeking an efficient way to manage their schedules, this scalable solution supports multi-user collaboration and integrates easily with other systems through RESTful APIs.", members: [1, 3], owner: "Doran"},
-    //       ];
-    //       setSavedProjects(savedprojects)
-
-    // }, [])
-
-
-    // useEffect(() => {
-
-        
-    //     const projectMembers = [
-    //         {id: 1, username: "gendry"},
-    //         {id: 2, username: "davos"},
-    //         {id: 3, username: "darkstar"}
-    //     ]
-    //     setMembers(projectMembers)
-    // }, [])
-
-    // useEffect(() => {
-    //     const devProfile = [
-    //         {_id: 1, username: "darkstar", img:{Becca}},
-    //         {_id: 2, username: "rhaeghar", img:{Morrillo}}
-    //     ]
-    //     setDevs(devProfile)
-    // }, [])
 
 
 
     return (
-        <ProjectContext.Provider value={{ userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects, saveProject, favouriteProject}}>
+        <ProjectContext.Provider value={{ userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects, saveProject, favouriteProject, removeProject}}>
             {children}
         </ProjectContext.Provider>
     )

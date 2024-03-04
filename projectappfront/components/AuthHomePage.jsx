@@ -10,7 +10,7 @@ import ProjectCardNoImg from "./projectcomponents/ProjectCardNoImage";
 
 
 const AuthHomePage = () => {
-    const {userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects, saveProject, favouriteProject } = useProjectsContext()
+    const {userCreatedProjects, userSavedProjects, userFavouriteProjects, userOngoingProjects, saveProject, favouriteProject, removeProject } = useProjectsContext()
 
     const {userName} = useApiClient()
     
@@ -33,10 +33,10 @@ const AuthHomePage = () => {
         {
             title: 'Your Activities',
             items: [
-                {name: "Your Projects", projects: userCreatedProjects},
-                {name: "Saved Projects", projects: userSavedProjects},
-                {name: "Favourite Projects", projects: userFavouriteProjects},
-                {name: "Ongoing Projects", projects: userOngoingProjects}
+                {name: "Your Projects", categoryname: "CreatedProjects" , projects: userCreatedProjects},
+                {name: "Saved Projects", categoryname:"SavedProjects", projects: userSavedProjects},
+                {name: "Favourite Projects", categoryname: "FavouriteProjects",  projects: userFavouriteProjects},
+                {name: "Ongoing Projects", categoryname:"OngoingProjects", projects: userOngoingProjects}
             ]
         }
     ]
@@ -50,7 +50,10 @@ const AuthHomePage = () => {
     }
 
 
-      const projects = projectCategories[0]['items'].find(item => item.name === selectedCategory)?.projects || []
+      const selectedCategoryInfo = projectCategories[0]['items'].find(item => item.name === selectedCategory)
+      const projects = selectedCategoryInfo?.projects || []
+      const categoryName = selectedCategoryInfo ? selectedCategoryInfo.categoryname : null
+      console.log("These are the category names", categoryName)
       console.log(projects)
 
     // const activeCategoryProjects = projectCategories.find(category => category.items.name === selectedCategory)?.items.projects || []
@@ -90,11 +93,13 @@ const AuthHomePage = () => {
                                 <div key={project._id}>
                                     <ProjectCardNoImg
                                     title={project.Title}
+                                    categoryname ={categoryName}
                                     devPicture={devPic}
                                     description={project.Description}
                                     tags={project.Tags}
                                     onProjectSave={() => saveProject(project._id)}
-                                    onProjectFavourite={() => favouriteProject(project._id)}/>
+                                    onProjectFavourite={() => favouriteProject(project._id)}
+                                    onProjectRemove={() => removeProject(project._id, categoryName)}/>
                                 </div>
                             ))}
                         </div>
